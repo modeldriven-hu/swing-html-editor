@@ -88,6 +88,7 @@ public class MainFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		SwingHTMLEditor editor = new SwingHTMLEditor();
+		editor.setText("<p>Hello <b>world</b> from HTML!</p>");
 		frame.getContentPane().add(editor, BorderLayout.CENTER);
 	}
 

@@ -17,8 +17,11 @@ import java.awt.Color;
 
 public class SwingHTMLEditor extends JPanel {
 
+    final JTextPane editorPane;
+
     public SwingHTMLEditor(){
         super();
+        this.editorPane = new JTextPane();
         initComponents();
     }
 
@@ -26,19 +29,18 @@ public class SwingHTMLEditor extends JPanel {
 
         setLayout(new BorderLayout());
 
-        final JTextPane editorPane = new JTextPane();
         editorPane.setContentType("text/html");
         editorPane.setBackground(Color.WHITE);
 
-        final JScrollPane editorScrollPane = new JScrollPane();
+        JScrollPane editorScrollPane = new JScrollPane();
         editorScrollPane.setViewportView(editorPane);
 
-        final CustomHTMLEditorKit kit = new CustomHTMLEditorKit();
+        CustomHTMLEditorKit kit = new CustomHTMLEditorKit();
         editorPane.setEditorKit(kit);
         fixEditorCssRules(kit);
         kit.setAutoFormSubmission(false);
 
-        final HTMLDocument doc = (HTMLDocument) kit.createDefaultDocument();
+        HTMLDocument doc = (HTMLDocument) kit.createDefaultDocument();
         doc.setPreservesUnknownTags(false);
         doc.putProperty("IgnoreCharsetDirective", true);
         editorPane.setDocument(doc);
@@ -52,20 +54,28 @@ public class SwingHTMLEditor extends JPanel {
         afterLoad(editorPane);
     }
 
+    public void setText(String text) {
+        editorPane.setText(text);
+    }
+
     protected void afterLoad(final JTextPane editor) {
+
         // Goto first Paragraph
-        final StyledDocument doc = editor.getStyledDocument();
-        final int len = doc.getLength();
-        for (int i = 0; i <= len; i++) {
-            final Element elem = doc.getParagraphElement(i);
-            final AttributeSet attr = elem.getAttributes();
-            final Object o = attr.getAttribute(StyleConstants.NameAttribute);
+        StyledDocument doc = editor.getStyledDocument();
+
+        for (int i = 0; i <= doc.getLength(); i++) {
+            Element elem = doc.getParagraphElement(i);
+            AttributeSet attr = elem.getAttributes();
+            Object o = attr.getAttribute(StyleConstants.NameAttribute);
+
             if (o == HTML.Tag.P) {
                 editor.setCaretPosition(elem.getStartOffset());
                 break;
             }
+
             i = elem.getEndOffset() - 1; // fast-forward
         }
+
         editor.requestFocus();
     }
 
@@ -73,7 +83,7 @@ public class SwingHTMLEditor extends JPanel {
         // TODO: Fix font scaling: http://kynosarges.org/GuiDpiScaling.html
         // https://stackoverflow.com/questions/17551537/how-to-fit-font-into-pixel-size-in-java-how-to-convert-pixels-to-points
         // https://stackoverflow.com/questions/15659044/how-to-set-the-dpi-of-java-swing-apps-on-windows-linux
-        final StyleSheet css = kit.getStyleSheet();
+        StyleSheet css = kit.getStyleSheet();
         css.addRule("body, p, li { font-size: 1.1em; }");
     }
 
