@@ -7,14 +7,7 @@ import java.awt.Dimension;
 import java.awt.event.*;
 import java.lang.invoke.MethodHandles;
 
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-import javax.swing.JToolBar;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.Element;
 import javax.swing.text.StyleConstants;
@@ -43,19 +36,6 @@ import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 public class MainFrame {
 	private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 	private static final boolean useDark = true;
-	private static final boolean enableBrokenFeatures = false;
-	public static final PolicyFactory HTML_POLICY_DEFINITION_BASIC = new HtmlPolicyBuilder()
-			.allowUrlProtocols("http", "https", "data", "mailto") //
-			.allowAttributes("id").globally() //
-			.allowAttributes("class").globally() //
-			.allowStyling(CssSchema.DEFAULT) //
-			.allowAttributes("src").onElements("img") //
-			.allowAttributes("alt").onElements("img") //
-			.allowAttributes("height", "width").onElements("img") //
-			.allowAttributes("href").onElements("a") //
-			.allowAttributes("color").onElements("font") //
-			.allowElements("p", "div", "b", "i", "u", "strike", "font", "a", "img") //
-			.toFactory();
 
 	private JFrame frame;
 
@@ -110,6 +90,9 @@ public class MainFrame {
 		frame.setLocation(100, 100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		JPanel contentPanel = new JPanel();
+		contentPanel.setLayout(new BorderLayout());
+
 		final JTextPane editorPane = new JTextPane();
 		editorPane.setContentType("text/html");
 		editorPane.setBackground(Color.WHITE);
@@ -128,78 +111,14 @@ public class MainFrame {
 		editorPane.setDocument(doc);
 		editorPane.setText(createEmptyDocument());
 
-		// Undo / Redo Feature
-		final UndoManager undoManager = new UndoManager();
-		doc.addUndoableEditListener(undoManager);
-
-		// Register custom Actions
-		final ActionMap editorActionMap = editorPane.getActionMap();
-		editorActionMap.put("Undo", new AbstractAction() {
-			private static final long serialVersionUID = 42L;
-
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				try {
-					if (undoManager.canUndo()) {
-						undoManager.undo();
-					}
-				} catch (CannotUndoException ex) {
-					throw new RuntimeException(ex);
-				}
-			}
-		});
-
-		editorActionMap.put("Redo", new AbstractAction() {
-			private static final long serialVersionUID = 42L;
-
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				try {
-					if (undoManager.canRedo()) {
-						undoManager.redo();
-					}
-				} catch (CannotUndoException ex) {
-					throw new RuntimeException(ex);
-				}
-			}
-		});
-
-		editorActionMap.put("font-strike", new StrikethroughAction());
-		editorActionMap.put("increment-indent", new IndentAction("increment-indent", 20f));
-		editorActionMap.put("reduce-indent", new IndentAction("reduce-indent", -20f));
-		editorActionMap.put("justified",
-				new StyledEditorKit.AlignmentAction("Justify", StyleConstants.ALIGN_JUSTIFIED));
-		editorActionMap.put("link", new LinkAction());
-		editorActionMap.put("unlink", new UnlinkAction());
-		editorActionMap.put("insert-hr", new HTMLEditorKit.InsertHTMLTextAction("insert-hr",
-				"<hr size=1 align=left noshade>", HTML.Tag.BODY, HTML.Tag.HR));
-		editorActionMap.put("insert-img", new InsertImageAction());
-
 		ToolbarFactory toolbarFactory = new ToolbarFactory();
-		JToolBar toolBar = toolbarFactory.createToolBar(editorActionMap, editorPane);
+		JToolBar toolBar = toolbarFactory.createToolBar(doc, editorPane);
 
-		frame.getContentPane().add(toolBar, BorderLayout.NORTH);
-
-		// Focus gain/lost enable/disable butons
-		editorPane.addFocusListener(new FocusListener() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				for (final Component comp : toolBar.getComponents()) {
-					comp.setEnabled(true);
-				}
-			}
-
-			@Override
-			public void focusLost(FocusEvent e) {
-				for (final Component comp : toolBar.getComponents()) {
-					comp.setEnabled(false);
-				}
-			}
-		});
-
+		contentPanel.add(toolBar, BorderLayout.NORTH);
+		contentPanel.add(editorScrollPane, BorderLayout.CENTER);
 		afterLoad(editorPane);
 
-		frame.getContentPane().add(editorScrollPane, BorderLayout.CENTER);
+		frame.getContentPane().add(contentPanel, BorderLayout.CENTER);
 	}
 
 	protected void afterLoad(final JTextPane editor) {
@@ -218,8 +137,6 @@ public class MainFrame {
 		}
 		editor.requestFocus();
 	}
-
-
 
 	protected void fixEditorCssRules(final HTMLEditorKit kit) {
 		// TODO: Fix font scaling: http://kynosarges.org/GuiDpiScaling.html

@@ -10,9 +10,11 @@ import javax.swing.text.*;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
+import java.awt.Component;
 import java.awt.Font;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.font.TextAttribute;
 import java.io.File;
 import java.io.FileReader;
@@ -23,7 +25,53 @@ import java.util.Map;
 
 public class ToolbarFactory {
 
-    public JToolBar createToolBar(ActionMap editorActionMap, JTextPane editorPane){
+    public JToolBar createToolBar(HTMLDocument doc, JTextPane editorPane){
+
+        final UndoManager undoManager = new UndoManager();
+        doc.addUndoableEditListener(undoManager);
+
+        ActionMap editorActionMap = editorPane.getActionMap();
+
+        editorActionMap.put("Undo", new AbstractAction() {
+            private static final long serialVersionUID = 42L;
+
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                try {
+                    if (undoManager.canUndo()) {
+                        undoManager.undo();
+                    }
+                } catch (CannotUndoException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
+        editorActionMap.put("Redo", new AbstractAction() {
+            private static final long serialVersionUID = 42L;
+
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                try {
+                    if (undoManager.canRedo()) {
+                        undoManager.redo();
+                    }
+                } catch (CannotUndoException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
+        editorActionMap.put("font-strike", new StrikethroughAction());
+        editorActionMap.put("increment-indent", new IndentAction("increment-indent", 20f));
+        editorActionMap.put("reduce-indent", new IndentAction("reduce-indent", -20f));
+        editorActionMap.put("justified",
+                new StyledEditorKit.AlignmentAction("Justify", StyleConstants.ALIGN_JUSTIFIED));
+        editorActionMap.put("link", new LinkAction());
+        editorActionMap.put("unlink", new UnlinkAction());
+        editorActionMap.put("insert-hr", new HTMLEditorKit.InsertHTMLTextAction("insert-hr",
+                "<hr size=1 align=left noshade>", HTML.Tag.BODY, HTML.Tag.HR));
+        editorActionMap.put("insert-img", new InsertImageAction());
 
         JToolBar toolBar = new JToolBar();
 
@@ -209,6 +257,23 @@ public class ToolbarFactory {
         btnLoad.addActionListener(a -> loadFile(editorPane));
         IconHelper.set(MaterialDesignF.FOLDER_OPEN, btnLoad);
         toolBar.add(btnLoad);
+
+        // Focus gain/lost enable/disable butons
+        editorPane.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                for (final Component comp : toolBar.getComponents()) {
+                    comp.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                for (final Component comp : toolBar.getComponents()) {
+                    comp.setEnabled(false);
+                }
+            }
+        });
 
         return toolBar;
     }

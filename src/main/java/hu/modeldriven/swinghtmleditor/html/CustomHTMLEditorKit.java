@@ -3,6 +3,9 @@ package hu.modeldriven.swinghtmleditor.html;
 import hu.modeldriven.swinghtmleditor.MainFrame;
 import org.apache.commons.io.IOUtils;
 import org.fit.net.DataURLHandler;
+import org.owasp.html.CssSchema;
+import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.PolicyFactory;
 
 import javax.swing.text.*;
 import javax.swing.text.html.HTML;
@@ -15,6 +18,21 @@ import java.net.URL;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CustomHTMLEditorKit extends HTMLEditorKit {
+
+    private static final PolicyFactory HTML_POLICY_DEFINITION_BASIC = new HtmlPolicyBuilder()
+            .allowUrlProtocols("http", "https", "data", "mailto") //
+            .allowAttributes("id").globally() //
+            .allowAttributes("class").globally() //
+            .allowStyling(CssSchema.DEFAULT) //
+            .allowAttributes("src").onElements("img") //
+            .allowAttributes("alt").onElements("img") //
+            .allowAttributes("height", "width").onElements("img") //
+            .allowAttributes("href").onElements("a") //
+            .allowAttributes("color").onElements("font") //
+            .allowElements("p", "div", "b", "i", "u", "strike", "font", "a", "img") //
+            .toFactory();
+
+
     private static final long serialVersionUID = 42L;
     private final AtomicBoolean init = new AtomicBoolean();
 
@@ -64,7 +82,7 @@ public class CustomHTMLEditorKit extends HTMLEditorKit {
     }
 
     protected String sanitizeHTML(final String input) {
-        return MainFrame.HTML_POLICY_DEFINITION_BASIC.sanitize(input);
+        return HTML_POLICY_DEFINITION_BASIC.sanitize(input);
     }
 
     @Override
