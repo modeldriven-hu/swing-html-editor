@@ -1,5 +1,8 @@
 package hu.modeldriven.swinghtmleditor.action;
 
+import hu.modeldriven.swinghtmleditor.command.BoldCommand;
+import hu.modeldriven.swinghtmleditor.command.Command;
+import hu.modeldriven.swinghtmleditor.command.ItalicCommand;
 import hu.modeldriven.swinghtmleditor.component.ColorSelectorButton;
 import hu.modeldriven.swinghtmleditor.util.IconHelper;
 import org.kordamp.ikonli.materialdesign2.*;
@@ -13,15 +16,13 @@ import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.event.*;
-import java.awt.font.TextAttribute;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ToolbarFactory {
 
@@ -74,36 +75,14 @@ public class ToolbarFactory {
         editorActionMap.put("insert-img", new InsertImageAction());
 
         JToolBar toolBar = new JToolBar();
+        createToolBarButtons(toolBar, editorPane, editorActionMap);
 
-        // BOLD
-        JButton btnBold = new JButton(editorActionMap.get("font-bold"));
-        btnBold.setText("B");
-        btnBold.setRequestFocusEnabled(false);
-        btnBold.setToolTipText("Bold");
-        IconHelper.set(MaterialDesignF.FORMAT_BOLD, btnBold);
-        mapKey(editorPane, KeyEvent.VK_B, "font-bold");
-        toolBar.add(btnBold);
-
-        // ITALIC
-        JButton btnItalic = new JButton(editorActionMap.get("font-italic"));
-        btnItalic.setText("I");
-        btnItalic.setRequestFocusEnabled(false);
-        btnItalic.setToolTipText("Italic");
-        IconHelper.set(MaterialDesignF.FORMAT_ITALIC, btnItalic);
-        mapKey(editorPane, KeyEvent.VK_I, "font-italic");
-        toolBar.add(btnItalic);
 
         // UNDERLINE
         JButton btnUnderline = new JButton(editorActionMap.get("font-underline"));
         btnUnderline.setText("U");
         btnUnderline.setRequestFocusEnabled(false);
         btnUnderline.setToolTipText("Underline");
-        {
-            final Font fontUnderline = btnUnderline.getFont();
-            final Map<TextAttribute, Object> attributes = new HashMap<>(fontUnderline.getAttributes());
-            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-            btnUnderline.setFont(fontUnderline.deriveFont(attributes));
-        }
         IconHelper.set(MaterialDesignF.FORMAT_UNDERLINE, btnUnderline);
         mapKey(editorPane, KeyEvent.VK_U, "font-underline");
         toolBar.add(btnUnderline);
@@ -113,12 +92,6 @@ public class ToolbarFactory {
         btnStrikethrough.setText("S");
         btnStrikethrough.setRequestFocusEnabled(false);
         btnStrikethrough.setToolTipText("Strikethrough");
-        {
-            final Font fontStrikethrough = btnStrikethrough.getFont();
-            final Map<TextAttribute, Object> attributes = new HashMap<>(fontStrikethrough.getAttributes());
-            attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
-            btnStrikethrough.setFont(fontStrikethrough.deriveFont(attributes));
-        }
         IconHelper.set(MaterialDesignF.FORMAT_STRIKETHROUGH, btnStrikethrough);
         mapKey(editorPane, KeyEvent.VK_S, "font-strike");
         toolBar.add(btnStrikethrough);
@@ -276,6 +249,25 @@ public class ToolbarFactory {
         });
 
         return toolBar;
+    }
+
+    private void createToolBarButtons(JToolBar toolBar, JTextPane editorPane, ActionMap editorActionMap) {
+
+        List<Command> commands = new ArrayList<>();
+
+        commands.add(new BoldCommand());
+        commands.add(new ItalicCommand());
+
+        for (Command command : commands) {
+            JButton button = new JButton(editorActionMap.get(command.getActionMapKey()));
+            button.setText(command.getText());
+            button.setRequestFocusEnabled(command.isRequestFocusEnabled());
+            button.setToolTipText(command.getTooltipText());
+            IconHelper.set(command.getIcon(), button);
+            command.getKeyEvent().ifPresent(keyEvent -> mapKey(editorPane, keyEvent, command.getActionMapKey()));
+            toolBar.add(button);
+        }
+
     }
 
 
