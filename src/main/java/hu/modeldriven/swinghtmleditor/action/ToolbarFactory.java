@@ -1,5 +1,6 @@
-package hu.modeldriven.swinghtmleditor.component;
+package hu.modeldriven.swinghtmleditor.action;
 
+import hu.modeldriven.swinghtmleditor.component.ColorSelectorButton;
 import hu.modeldriven.swinghtmleditor.util.IconHelper;
 import org.kordamp.ikonli.materialdesign2.*;
 
@@ -20,9 +21,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Toolbar {
+public class ToolbarFactory {
 
-    public void createToolBar(JToolBar toolBar, ActionMap editorActionMap, JTextPane editorPane){
+    public JToolBar createToolBar(ActionMap editorActionMap, JTextPane editorPane){
+
+        JToolBar toolBar = new JToolBar();
+
         // BOLD
         JButton btnBold = new JButton(editorActionMap.get("font-bold"));
         btnBold.setText("B");
@@ -205,6 +209,8 @@ public class Toolbar {
         btnLoad.addActionListener(a -> loadFile(editorPane));
         IconHelper.set(MaterialDesignF.FOLDER_OPEN, btnLoad);
         toolBar.add(btnLoad);
+
+        return toolBar;
     }
 
 

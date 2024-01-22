@@ -4,34 +4,18 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.*;
-import java.awt.font.TextAttribute;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
-import javax.swing.InputMap;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
-import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.EditorKit;
 import javax.swing.text.Element;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -44,16 +28,8 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
 import hu.modeldriven.swinghtmleditor.action.*;
-import hu.modeldriven.swinghtmleditor.component.ColorSelectorButton;
-import hu.modeldriven.swinghtmleditor.component.Toolbar;
+import hu.modeldriven.swinghtmleditor.action.ToolbarFactory;
 import hu.modeldriven.swinghtmleditor.html.CustomHTMLEditorKit;
-import hu.modeldriven.swinghtmleditor.util.IconHelper;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignF;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignI;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignL;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignM;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignR;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignU;
 import org.owasp.html.CssSchema;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
@@ -199,11 +175,10 @@ public class MainFrame {
 				"<hr size=1 align=left noshade>", HTML.Tag.BODY, HTML.Tag.HR));
 		editorActionMap.put("insert-img", new InsertImageAction());
 
-		JToolBar toolBar = new JToolBar();
-		frame.getContentPane().add(toolBar, BorderLayout.NORTH);
+		ToolbarFactory toolbarFactory = new ToolbarFactory();
+		JToolBar toolBar = toolbarFactory.createToolBar(editorActionMap, editorPane);
 
-		Toolbar toolbar = new Toolbar();
-		toolbar.createToolBar(toolBar, editorActionMap, editorPane);
+		frame.getContentPane().add(toolBar, BorderLayout.NORTH);
 
 		// Focus gain/lost enable/disable butons
 		editorPane.addFocusListener(new FocusListener() {
