@@ -1,7 +1,7 @@
 package hu.modeldriven.swinghtmleditor.command;
 
 import org.kordamp.ikonli.Ikon;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignF;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -36,7 +36,7 @@ public class ItalicCommand implements Command {
 
     @Override
     public Ikon getIcon() {
-        return MaterialDesignF.FORMAT_ITALIC;
+        return FontAwesomeSolid.ITALIC;
     }
 
     @Override

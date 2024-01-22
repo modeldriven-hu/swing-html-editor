@@ -1,8 +1,8 @@
 package hu.modeldriven.swinghtmleditor.component;
 
-import hu.modeldriven.swinghtmleditor.util.IconHelper;
 import hu.modeldriven.swinghtmleditor.html.WebColor;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignW;
+import hu.modeldriven.swinghtmleditor.util.IconHelper;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 
 import javax.swing.*;
 import javax.swing.text.StyledEditorKit;
@@ -59,7 +59,7 @@ public class ColorSelectorButton extends JButton {
         for (final WebColor c : colors) {
             JMenuItem menuItem = new JMenuItem(c.getWebName());
             menuItem.addActionListener(e -> setSelectedColor(c, e));
-            IconHelper.set(MaterialDesignW.WATER, menuItem, c);
+            IconHelper.set(FontAwesomeSolid.WATER, menuItem, c);
             menuColor.add(menuItem);
         }
         return menuColor;

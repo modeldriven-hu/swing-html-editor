@@ -1,18 +1,14 @@
 package hu.modeldriven.swinghtmleditor.util;
 
+import org.kordamp.ikonli.Ikon;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
+import org.kordamp.ikonli.swing.FontIcon;
+
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.beans.Beans;
-
-import javax.swing.AbstractButton;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.UIManager;
-
-import org.kordamp.ikonli.Ikon;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
-import org.kordamp.ikonli.swing.FontIcon;
 
 public class IconHelper {
 	public static final int ICON_SIZE = 24; // FIXME: Hardcoded value
@@ -48,10 +44,9 @@ public class IconHelper {
 
 	public static ImageIcon createColorSelectorIcon(final Ikon ikonBase, //
 			final Color colorBase, final Color colorHelper) {
-		final ImageIcon iconBase = FontIcon.of(ikonBase, ICON_SIZE, colorBase).toImageIcon();
+		final ImageIcon iconBase = toImageIcon(FontIcon.of(ikonBase, ICON_SIZE, colorBase));
 		if (colorHelper != null) {
-			final ImageIcon iconHelper = FontIcon.of(MaterialDesignC.COLOR_HELPER, ICON_SIZE, colorBase)
-					.toImageIcon();
+			final ImageIcon iconHelper = toImageIcon(FontIcon.of(FontAwesomeSolid.AD, ICON_SIZE, colorBase));
 			return mergeIcons(iconBase, iconHelper);
 		} else {
 			final ImageIcon iconRainbow = createRainbowHelperIcon(ICON_SIZE, ICON_SIZE);
@@ -107,4 +102,11 @@ public class IconHelper {
 		final FontIcon iconEnabled = FontIcon.of(icon, ICON_SIZE, color);
 		comp.setIcon(iconEnabled);
 	}
+
+	private static ImageIcon toImageIcon(Icon icon) {
+		BufferedImage image = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+		icon.paintIcon(null, image.getGraphics(), 0, 0);
+		return new ImageIcon(image);
+	}
+
 }
