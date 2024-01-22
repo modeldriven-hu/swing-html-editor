@@ -1,6 +1,6 @@
 # Swing HTML Editor
 
-Simple HTML Editor in Swing based on jHTMLEditor (https://github.com/ggrandes/jhtmleditor) because
+Swing HTML Editor in Swing based on jHTMLEditor (https://github.com/ggrandes/jhtmleditor) because
 the project was put in archived state.
 
 ## License
