@@ -1,4 +1,4 @@
-package hu.modeldriven.swinghtmleditor;
+package hu.modeldriven.swinghtmleditor.util;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

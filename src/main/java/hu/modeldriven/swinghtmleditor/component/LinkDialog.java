@@ -1,4 +1,4 @@
-package hu.modeldriven.swinghtmleditor;
+package hu.modeldriven.swinghtmleditor.component;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
