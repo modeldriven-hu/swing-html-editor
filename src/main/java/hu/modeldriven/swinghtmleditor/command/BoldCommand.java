@@ -1,7 +1,7 @@
 package hu.modeldriven.swinghtmleditor.command;
 
 import org.kordamp.ikonli.Ikon;
-import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -35,7 +35,7 @@ public class BoldCommand implements Command {
 
     @Override
     public Ikon getIcon() {
-        return FontAwesomeSolid.BOLD;
+        return MaterialDesign.MDI_FORMAT_BOLD;
     }
 
     @Override

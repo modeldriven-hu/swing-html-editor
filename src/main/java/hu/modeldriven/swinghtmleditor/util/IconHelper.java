@@ -1,7 +1,7 @@
 package hu.modeldriven.swinghtmleditor.util;
 
 import org.kordamp.ikonli.Ikon;
-import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
@@ -46,7 +46,7 @@ public class IconHelper {
 			final Color colorBase, final Color colorHelper) {
 		final ImageIcon iconBase = toImageIcon(FontIcon.of(ikonBase, ICON_SIZE, colorBase));
 		if (colorHelper != null) {
-			final ImageIcon iconHelper = toImageIcon(FontIcon.of(FontAwesomeSolid.AD, ICON_SIZE, colorBase));
+			final ImageIcon iconHelper = toImageIcon(FontIcon.of(MaterialDesign.MDI_COLOR_HELPER, ICON_SIZE, colorBase));
 			return mergeIcons(iconBase, iconHelper);
 		} else {
 			final ImageIcon iconRainbow = createRainbowHelperIcon(ICON_SIZE, ICON_SIZE);

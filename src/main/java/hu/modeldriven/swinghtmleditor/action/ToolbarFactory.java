@@ -5,7 +5,7 @@ import hu.modeldriven.swinghtmleditor.command.Command;
 import hu.modeldriven.swinghtmleditor.command.ItalicCommand;
 import hu.modeldriven.swinghtmleditor.component.ColorSelectorButton;
 import hu.modeldriven.swinghtmleditor.util.IconHelper;
-import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -83,7 +83,7 @@ public class ToolbarFactory {
         btnUnderline.setText("U");
         btnUnderline.setRequestFocusEnabled(false);
         btnUnderline.setToolTipText("Underline");
-        IconHelper.set(FontAwesomeSolid.UNDERLINE, btnUnderline);
+        IconHelper.set(MaterialDesign.MDI_FORMAT_UNDERLINE, btnUnderline);
         mapKey(editorPane, KeyEvent.VK_U, "font-underline");
         toolBar.add(btnUnderline);
 
@@ -92,7 +92,7 @@ public class ToolbarFactory {
         btnStrikethrough.setText("S");
         btnStrikethrough.setRequestFocusEnabled(false);
         btnStrikethrough.setToolTipText("Strikethrough");
-        IconHelper.set(FontAwesomeSolid.STRIKETHROUGH, btnStrikethrough);
+        IconHelper.set(MaterialDesign.MDI_FORMAT_STRIKETHROUGH, btnStrikethrough);
         mapKey(editorPane, KeyEvent.VK_S, "font-strike");
         toolBar.add(btnStrikethrough);
 
@@ -100,7 +100,7 @@ public class ToolbarFactory {
         ColorSelectorButton btnFontColor = new ColorSelectorButton();
         btnFontColor.setRequestFocusEnabled(false);
         btnFontColor.setToolTipText("Font Color");
-        IconHelper.setColorHelper(FontAwesomeSolid.COCKTAIL, btnFontColor);
+        IconHelper.setColorHelper(MaterialDesign.MDI_COLOR_HELPER, btnFontColor);
         toolBar.add(btnFontColor);
 
         toolBar.addSeparator();
@@ -110,7 +110,7 @@ public class ToolbarFactory {
         btnIncreaseIndent.setText("+Indent");
         btnIncreaseIndent.setRequestFocusEnabled(false);
         btnIncreaseIndent.setToolTipText("Increase Indent");
-        IconHelper.set(FontAwesomeSolid.INDENT, btnIncreaseIndent);
+        IconHelper.set(MaterialDesign.MDI_FORMAT_INDENT_INCREASE, btnIncreaseIndent);
         toolBar.add(btnIncreaseIndent);
 
         // PARAGRAPH - INDENT
@@ -118,7 +118,7 @@ public class ToolbarFactory {
         btnReduceIndent.setText("-Indent");
         btnReduceIndent.setRequestFocusEnabled(false);
         btnReduceIndent.setToolTipText("Reduce Indent");
-        IconHelper.set(FontAwesomeSolid.INDENT, btnReduceIndent);
+        IconHelper.set(MaterialDesign.MDI_FORMAT_INDENT_DECREASE, btnReduceIndent);
         toolBar.add(btnReduceIndent);
 
         toolBar.addSeparator();
@@ -128,7 +128,7 @@ public class ToolbarFactory {
         btnLeftAlign.setText("Left");
         btnLeftAlign.setRequestFocusEnabled(false);
         btnLeftAlign.setToolTipText("Left Alignment");
-        IconHelper.set(FontAwesomeSolid.ALIGN_LEFT, btnLeftAlign);
+        IconHelper.set(MaterialDesign.MDI_FORMAT_ALIGN_LEFT, btnLeftAlign);
         toolBar.add(btnLeftAlign);
 
         // PARAGRAPH CENTER ALIGN
@@ -136,7 +136,7 @@ public class ToolbarFactory {
         btnCenterAlign.setText("Center");
         btnCenterAlign.setRequestFocusEnabled(false);
         btnCenterAlign.setToolTipText("Center Alignment");
-        IconHelper.set(FontAwesomeSolid.ALIGN_CENTER, btnCenterAlign);
+        IconHelper.set(MaterialDesign.MDI_FORMAT_ALIGN_CENTER, btnCenterAlign);
         toolBar.add(btnCenterAlign);
 
         // PARAGRAPH RIGHT ALIGN
@@ -144,7 +144,7 @@ public class ToolbarFactory {
         btnRightAlign.setText("Right");
         btnRightAlign.setRequestFocusEnabled(false);
         btnRightAlign.setToolTipText("Right Alignment");
-        IconHelper.set(FontAwesomeSolid.ALIGN_RIGHT, btnRightAlign);
+        IconHelper.set(MaterialDesign.MDI_FORMAT_ALIGN_RIGHT, btnRightAlign);
         toolBar.add(btnRightAlign);
 
         // PARAGRAPH JUSTIFIED
@@ -152,7 +152,7 @@ public class ToolbarFactory {
         btnJustify.setText("Justify");
         btnJustify.setRequestFocusEnabled(false);
         btnJustify.setToolTipText("Justify Alignment");
-        IconHelper.set(FontAwesomeSolid.ALIGN_JUSTIFY, btnJustify);
+        IconHelper.set(MaterialDesign.MDI_FORMAT_ALIGN_JUSTIFY, btnJustify);
         toolBar.add(btnJustify);
 
         toolBar.addSeparator();
@@ -162,7 +162,7 @@ public class ToolbarFactory {
         btnLink.setText("Link");
         btnLink.setRequestFocusEnabled(false);
         btnLink.setToolTipText("Link");
-        IconHelper.set(FontAwesomeSolid.LINK, btnLink);
+        IconHelper.set(MaterialDesign.MDI_LINK, btnLink);
         toolBar.add(btnLink);
 
         // TEXT CLEAR HYPERLINK
@@ -170,7 +170,7 @@ public class ToolbarFactory {
         btnUnlink.setText("Unlink");
         btnUnlink.setRequestFocusEnabled(false);
         btnUnlink.setToolTipText("Unlink");
-        IconHelper.set(FontAwesomeSolid.UNLINK, btnUnlink);
+        IconHelper.set(MaterialDesign.MDI_LINK_OFF, btnUnlink);
         toolBar.add(btnUnlink);
 
         toolBar.addSeparator();
@@ -180,7 +180,7 @@ public class ToolbarFactory {
         btnHorizontalRule.setText("\u2015");
         btnHorizontalRule.setRequestFocusEnabled(false);
         btnHorizontalRule.setToolTipText("Horizontal Rule");
-        IconHelper.set(FontAwesomeSolid.RULER_HORIZONTAL, btnHorizontalRule);
+        IconHelper.set(MaterialDesign.MDI_BORDER_HORIZONTAL, btnHorizontalRule);
         toolBar.add(btnHorizontalRule);
 
         // IMAGE
@@ -188,7 +188,7 @@ public class ToolbarFactory {
         btnImage.setText("Img");
         btnImage.setRequestFocusEnabled(false);
         btnImage.setToolTipText("Image");
-        IconHelper.set(FontAwesomeSolid.IMAGE, btnImage);
+        IconHelper.set(MaterialDesign.MDI_IMAGE, btnImage);
         toolBar.add(btnImage);
 
         toolBar.addSeparator();
@@ -198,7 +198,7 @@ public class ToolbarFactory {
         btnUndo.setText("Undo");
         btnUndo.setRequestFocusEnabled(false);
         btnUndo.setToolTipText("Undo");
-        IconHelper.set(FontAwesomeSolid.UNDO, btnUndo);
+        IconHelper.set(MaterialDesign.MDI_UNDO, btnUndo);
         mapKey(editorPane, KeyEvent.VK_Z, "Undo");
         toolBar.add(btnUndo);
 
@@ -207,7 +207,7 @@ public class ToolbarFactory {
         btnRedo.setText("Redo");
         btnRedo.setRequestFocusEnabled(false);
         btnRedo.setToolTipText("Redo");
-        IconHelper.set(FontAwesomeSolid.REDO, btnRedo);
+        IconHelper.set(MaterialDesign.MDI_REDO, btnRedo);
         mapKey(editorPane, KeyEvent.VK_Y, "Redo");
         toolBar.add(btnRedo);
 
@@ -219,7 +219,7 @@ public class ToolbarFactory {
         btnSave.setRequestFocusEnabled(false);
         btnSave.setToolTipText("Save");
         btnSave.addActionListener(a -> writeFile(editorPane));
-        IconHelper.set(FontAwesomeSolid.SAVE, btnSave);
+        IconHelper.set(MaterialDesign.MDI_CONTENT_SAVE, btnSave);
         toolBar.add(btnSave);
 
         // LOAD FILE
@@ -228,7 +228,7 @@ public class ToolbarFactory {
         btnLoad.setRequestFocusEnabled(false);
         btnLoad.setToolTipText("Load");
         btnLoad.addActionListener(a -> loadFile(editorPane));
-        IconHelper.set(FontAwesomeSolid.ENVELOPE_OPEN, btnLoad);
+        IconHelper.set(MaterialDesign.MDI_OPEN_IN_NEW, btnLoad);
         toolBar.add(btnLoad);
 
         // Focus gain/lost enable/disable butons
