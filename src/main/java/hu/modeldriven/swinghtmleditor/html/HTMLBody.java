@@ -26,9 +26,7 @@ public class HTMLBody {
 
             editorKit.write(stringWriter, element.getDocument(), element.getStartOffset(), element.getEndOffset()-element.getStartOffset());
 
-            String sanitizedString = editorKit.sanitizeHTML(stringWriter.toString());
-
-            return sanitizedString;
+            return editorKit.sanitizeHTML(stringWriter.toString());
         } catch (Exception e){
             e.printStackTrace();
             return null;
