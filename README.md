@@ -15,6 +15,16 @@ Open Source Java project under Apache License v2.0 (the same as jHTMLEditor)
 
 ---
 
+## Modifications
+
+- Rewrote code to support Java 1.8
+- Fixed CVE error message for owasp-java-html-sanitizer library
+- Moved inner classes into separate files
+- Rewrote the code to be OOP (no utility classes, immutability as much as possible)
+- Removed unnecessary features (load, save, etc.)
+- Added support for palette (no hardcoded colors)
+- Fixed most SonarQube errors
+
 ## Screenshots
 
 ###### Main Window 
