@@ -15,6 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.invoke.MethodHandles;
 
+/**
+ * 2024.01. - Modified by Zsolt Sandor
+ */
 public class TestFrame {
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     private static final boolean useDark = true;

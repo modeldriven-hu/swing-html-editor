@@ -6,6 +6,10 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
+/**
+ * 2024.01. - Modified by Zsolt Sandor
+ */
 public class LinkDialog extends JDialog {
     private static final long serialVersionUID = 42L;
     private static final int V_SPACE = 5;
