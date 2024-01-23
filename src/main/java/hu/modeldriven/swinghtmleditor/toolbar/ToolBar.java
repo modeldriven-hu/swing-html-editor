@@ -1,10 +1,11 @@
 package hu.modeldriven.swinghtmleditor.toolbar;
 
 import hu.modeldriven.swinghtmleditor.component.ColorSelectorButton;
-import hu.modeldriven.swinghtmleditor.component.IconHelper;
 import hu.modeldriven.swinghtmleditor.palette.Palette;
 import hu.modeldriven.swinghtmleditor.toolbar.command.Command;
 import hu.modeldriven.swinghtmleditor.toolbar.command.CommandGroup;
+import org.kordamp.ikonli.Ikon;
+import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
 import java.awt.Component;
@@ -53,7 +54,7 @@ public class ToolBar {
                 button.setText(command.getText());
                 button.setRequestFocusEnabled(command.isRequestFocusEnabled());
                 button.setToolTipText(command.getTooltipText());
-                IconHelper.set(command.getIcon(), button);
+                assignIcon(command.getIcon(), button);
 
                 command.getActionListener().ifPresent(button::addActionListener);
 
@@ -68,6 +69,16 @@ public class ToolBar {
         btnFontColor.setRequestFocusEnabled(false);
         btnFontColor.setToolTipText("Font Color");
         toolBar.add(btnFontColor);
+    }
+
+    private void assignIcon(Ikon icon, AbstractButton comp) {
+        comp.setText(null);
+
+        FontIcon iconEnabled = FontIcon.of(icon, 24, UIManager.getColor("Button.foreground"));
+        FontIcon iconDisabled = FontIcon.of(icon, 24, UIManager.getColor("Button.disabledText"));
+
+        comp.setIcon(iconEnabled);
+        comp.setDisabledIcon(iconDisabled);
     }
 
     private FocusListener createFocusListener(JToolBar toolBar) {

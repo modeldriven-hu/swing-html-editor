@@ -5,6 +5,7 @@ import hu.modeldriven.swinghtmleditor.palette.Palette;
 import hu.modeldriven.swinghtmleditor.palette.PaletteItem;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
+import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
 import javax.swing.text.StyledEditorKit;
@@ -53,20 +54,24 @@ public class ColorSelectorButton extends JButton {
 
     protected final JPopupMenu createPopup() {
         JPopupMenu result = new JPopupMenu();
+
         result.setRequestFocusEnabled(false);
         result.setLayout(new GridLayout(8, 2));
 
-        for (final PaletteItem paletteItem : palette.getItems()) {
+        for (PaletteItem paletteItem : palette.getItems()) {
             JMenuItem menuItem = new JMenuItem(paletteItem.getName());
             menuItem.addActionListener(e -> setSelectedColor(paletteItem, e));
-            IconHelper.set(MaterialDesign.MDI_COLOR_HELPER, menuItem, paletteItem.getColor());
+
+            FontIcon iconEnabled = FontIcon.of(MaterialDesign.MDI_COLOR_HELPER, 24, paletteItem.getColor());
+            menuItem.setIcon(iconEnabled);
+
             result.add(menuItem);
         }
 
         return result;
     }
 
-    public void setSelectedColor(final PaletteItem paletteItem) {
+    public void setSelectedColor(PaletteItem paletteItem) {
         final Icon icon = getIcon();
         final String text = getText();
 
@@ -77,13 +82,13 @@ public class ColorSelectorButton extends JButton {
         setText(text);
     }
 
-    public void setSelectedColor(final PaletteItem c, final ActionEvent e) {
+    public void setSelectedColor( PaletteItem c, ActionEvent e) {
         setSelectedColor(c);
         getAction().actionPerformed(e);
     }
 
     public static class SetColorActionFactory {
-        public StyledEditorKit.StyledTextAction create(final PaletteItem newColor) {
+        public StyledEditorKit.StyledTextAction create(PaletteItem newColor) {
             return new StyledEditorKit.ForegroundAction(newColor.getName(), newColor.getColor());
         }
     }
