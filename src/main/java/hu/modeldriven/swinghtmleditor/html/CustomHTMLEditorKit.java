@@ -26,7 +26,7 @@ public class CustomHTMLEditorKit extends HTMLEditorKit {
             .allowAttributes("height", "width").onElements("img") //
             .allowAttributes("href").onElements("a") //
             .allowAttributes("color").onElements("font") //
-            .allowElements("p", "div", "b", "i", "u", "strike", "font", "a", "img") //
+            .allowElements("p", "div", "b", "i", "u", "strike", "font", "a", "img", "ul", "li", "ol") //
             .toFactory();
 
     private static final long serialVersionUID = 42L;

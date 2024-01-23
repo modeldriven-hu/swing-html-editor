@@ -65,6 +65,10 @@ public class ToolBarCommands {
                 new RedoCommand(undoManager)
         ));
 
+        commandGroups.add(new CommandGroup(
+                new UnorderedListCommand()
+        ));
+
         return commandGroups;
     }
 
