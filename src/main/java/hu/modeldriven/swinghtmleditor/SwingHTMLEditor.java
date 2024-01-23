@@ -1,12 +1,14 @@
 package hu.modeldriven.swinghtmleditor;
 
 import hu.modeldriven.swinghtmleditor.html.CustomHTMLEditorKit;
+import hu.modeldriven.swinghtmleditor.html.HTMLBody;
 import hu.modeldriven.swinghtmleditor.palette.Palette;
 import hu.modeldriven.swinghtmleditor.palette.WebPalette;
 import hu.modeldriven.swinghtmleditor.toolbar.ToolBar;
 import hu.modeldriven.swinghtmleditor.toolbar.ToolBarCommands;
 
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.Element;
 import javax.swing.text.StyleConstants;
@@ -61,8 +63,16 @@ public class SwingHTMLEditor extends JPanel {
         afterLoad(editorPane);
     }
 
+    public void addDocumentListener(DocumentListener listener) {
+        editorPane.getDocument().addDocumentListener(listener);
+    }
+
     public void setText(String text) {
         editorPane.setText(text);
+    }
+
+    public String getText(){;
+        return new HTMLBody((HTMLDocument) editorPane.getDocument(), (CustomHTMLEditorKit)editorPane.getEditorKit()).asString();
     }
 
     protected void afterLoad(final JTextPane editor) {

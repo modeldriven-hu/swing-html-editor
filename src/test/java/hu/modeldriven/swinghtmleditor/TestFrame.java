@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.lang.invoke.MethodHandles;
@@ -67,7 +69,36 @@ public class TestFrame {
 
         SwingHTMLEditor editor = new SwingHTMLEditor();
         editor.setText("<p>Hello <b>world</b> from HTML!</p>");
+        editor.addDocumentListener(new MyDocumentListener(editor));
         frame.getContentPane().add(editor, BorderLayout.CENTER);
+    }
+
+    class MyDocumentListener implements DocumentListener{
+
+        private final SwingHTMLEditor editor;
+
+        public MyDocumentListener(SwingHTMLEditor editor) {
+            this.editor = editor;
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent documentEvent) {
+            handleDocumentUpdate(documentEvent);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent documentEvent) {
+            handleDocumentUpdate(documentEvent);
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent documentEvent) {
+            handleDocumentUpdate(documentEvent);
+        }
+
+        private void handleDocumentUpdate(DocumentEvent documentEvent) {
+            System.out.println(editor.getText());
+        }
     }
 
 }

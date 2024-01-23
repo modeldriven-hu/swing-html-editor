@@ -22,6 +22,7 @@ public class CustomHTMLEditorKit extends HTMLEditorKit {
             .allowUrlProtocols("http", "https", "data", "mailto") //
             .allowAttributes("id").globally() //
             .allowAttributes("class").globally() //
+            .allowAttributes("align").onElements("p")
             .allowStyling(CssSchema.DEFAULT) //
             .allowAttributes("src").onElements("img") //
             .allowAttributes("alt").onElements("img") //
@@ -81,7 +82,7 @@ public class CustomHTMLEditorKit extends HTMLEditorKit {
         throw new UnsupportedOperationException();
     }
 
-    protected String sanitizeHTML(final String input) {
+    public String sanitizeHTML(final String input) {
         return HTML_POLICY_DEFINITION_BASIC.sanitize(input);
     }
 
