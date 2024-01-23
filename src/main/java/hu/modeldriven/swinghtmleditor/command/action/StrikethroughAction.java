@@ -1,4 +1,4 @@
-package hu.modeldriven.swinghtmleditor.action;
+package hu.modeldriven.swinghtmleditor.command.action;
 
 import javax.swing.*;
 import javax.swing.text.MutableAttributeSet;

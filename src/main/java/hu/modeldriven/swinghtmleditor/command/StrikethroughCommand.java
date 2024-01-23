@@ -1,6 +1,6 @@
 package hu.modeldriven.swinghtmleditor.command;
 
-import hu.modeldriven.swinghtmleditor.action.StrikethroughAction;
+import hu.modeldriven.swinghtmleditor.command.action.StrikethroughAction;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 

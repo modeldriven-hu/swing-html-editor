@@ -1,31 +1,11 @@
 package hu.modeldriven.swinghtmleditor;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.*;
 import java.lang.invoke.MethodHandles;
 
 import javax.swing.*;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.Element;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
-import javax.swing.text.StyledEditorKit;
-import javax.swing.text.html.HTML;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.text.html.HTMLEditorKit;
-import javax.swing.text.html.StyleSheet;
-import javax.swing.undo.CannotUndoException;
-import javax.swing.undo.UndoManager;
 
-import hu.modeldriven.swinghtmleditor.action.*;
-import hu.modeldriven.swinghtmleditor.action.ToolbarFactory;
-import hu.modeldriven.swinghtmleditor.html.CustomHTMLEditorKit;
-import org.owasp.html.CssSchema;
-import org.owasp.html.HtmlPolicyBuilder;
-import org.owasp.html.PolicyFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

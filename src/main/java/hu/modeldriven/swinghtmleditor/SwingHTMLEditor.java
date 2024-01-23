@@ -1,6 +1,5 @@
 package hu.modeldriven.swinghtmleditor;
 
-import hu.modeldriven.swinghtmleditor.action.ToolbarFactory;
 import hu.modeldriven.swinghtmleditor.html.CustomHTMLEditorKit;
 
 import javax.swing.*;

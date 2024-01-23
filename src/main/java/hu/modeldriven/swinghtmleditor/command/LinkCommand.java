@@ -1,6 +1,6 @@
 package hu.modeldriven.swinghtmleditor.command;
 
-import hu.modeldriven.swinghtmleditor.action.LinkAction;
+import hu.modeldriven.swinghtmleditor.command.action.LinkAction;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 

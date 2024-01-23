@@ -1,4 +1,4 @@
-package hu.modeldriven.swinghtmleditor.action;
+package hu.modeldriven.swinghtmleditor;
 
 import hu.modeldriven.swinghtmleditor.command.*;
 import hu.modeldriven.swinghtmleditor.util.IconHelper;
