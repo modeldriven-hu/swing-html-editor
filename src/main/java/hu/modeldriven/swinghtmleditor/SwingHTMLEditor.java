@@ -71,7 +71,7 @@ public class SwingHTMLEditor extends JPanel {
         editorPane.setText(text);
     }
 
-    public String getText(){;
+    public String getText(){
         return new HTMLBody((HTMLDocument) editorPane.getDocument(), (CustomHTMLEditorKit)editorPane.getEditorKit()).asString();
     }
 

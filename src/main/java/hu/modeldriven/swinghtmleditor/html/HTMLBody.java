@@ -18,28 +18,29 @@ public class HTMLBody {
     public String asString(){
 
         try {
-
             Element rootElement = document.getDefaultRootElement();
             Element element = findElementByTagName(rootElement, "body");
 
-            StringWriter stringWriter = new StringWriter();
+            if (element != null) {
+                StringWriter stringWriter = new StringWriter();
+                editorKit.write(stringWriter, element.getDocument(), element.getStartOffset(), element.getEndOffset() - element.getStartOffset());
+                return editorKit.sanitizeHTML(stringWriter.toString());
+            }
 
-            editorKit.write(stringWriter, element.getDocument(), element.getStartOffset(), element.getEndOffset()-element.getStartOffset());
-
-            return editorKit.sanitizeHTML(stringWriter.toString());
+            return null;
         } catch (Exception e){
             e.printStackTrace();
             return null;
         }
     }
 
-    private Element findElementByTagName(Element parent, String tagName) {
-        if (parent != null && parent.getName() != null && parent.getName().equals(tagName)) {
-            return parent;
+    private Element findElementByTagName(Element element, String tagName) {
+        if (element.getName() != null && element.getName().equals(tagName)) {
+            return element;
         }
 
-        for (int i = 0; i < parent.getElementCount(); i++) {
-            Element child = parent.getElement(i);
+        for (int i = 0; i < element.getElementCount(); i++) {
+            Element child = element.getElement(i);
             Element found = findElementByTagName(child, tagName);
             if (found != null) {
                 return found;

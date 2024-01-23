@@ -31,7 +31,7 @@ public class UndoCommand implements Command {
                         undoManager.undo();
                     }
                 } catch (CannotUndoException ex) {
-                    throw new RuntimeException(ex);
+                    throw new CommandException(ex);
                 }
             }
         });

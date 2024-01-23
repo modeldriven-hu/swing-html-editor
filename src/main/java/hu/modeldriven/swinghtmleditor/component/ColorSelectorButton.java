@@ -16,6 +16,10 @@ import static javax.swing.UIManager.getColor;
 
 public class ColorSelectorButton extends JButton {
     private static final long serialVersionUID = 42L;
+
+    private static final String COLOR_FOREGROUND = "Button.foreground";
+    private static final String COLOR_DISABLED = "Button.disabledText";
+
     private final transient SetColorActionFactory colorFactory;
     private final transient Palette palette;
     private final JPopupMenu colorMenu;
@@ -39,13 +43,13 @@ public class ColorSelectorButton extends JButton {
         setText(null);
 
         ImageIcon iconEnabled = new ColorSelectorIcon(icon,
-                getColor("Button.foreground"), getColor("Button.foreground"));
+                getColor(COLOR_FOREGROUND), getColor(COLOR_FOREGROUND));
 
         ImageIcon iconRollover = new ColorSelectorIcon(icon,
-                getColor("Button.foreground"), null);
+                getColor(COLOR_FOREGROUND), null);
 
         ImageIcon iconDisabled = new ColorSelectorIcon(icon,
-                getColor("Button.disabledText"), getColor("Button.foreground"));
+                getColor(COLOR_DISABLED), getColor(COLOR_FOREGROUND));
 
         setIcon(iconEnabled);
         setRolloverIcon(iconRollover);

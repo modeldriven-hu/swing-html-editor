@@ -19,10 +19,6 @@ public class CustomHTMLWriter extends HTMLWriter {
 
     @Override
     protected boolean synthesizedElement(Element elem) {
-        // FIXME why?
-//        if (matchNameAttribute(elem.getAttributes(), HTML.Tag.IMPLIED)) {
-//            return false;
-//        }
         return false;
     }
 

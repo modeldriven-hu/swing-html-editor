@@ -4,67 +4,39 @@ import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LinkDialog extends JDialog {
     private static final long serialVersionUID = 42L;
-    private static final int V_SPACE = 5; // TODO: Hardcoded
+    private static final int V_SPACE = 5;
 
     private final AtomicBoolean accepted = new AtomicBoolean();
     private final JTextField url;
 
     public LinkDialog(final Frame parent) {
-        // Modal
         super(parent, "Link", true);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        //
+
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        //
-        JPanel linkHeaderPanel = makeHeaderPanel("Link");
+
+        JPanel linkHeaderPanel = createHeaderPanel();
         JPanel linkPanel = new JPanel();
         linkPanel.setLayout(new BoxLayout(linkPanel, BoxLayout.LINE_AXIS));
         url = new JTextField(20);
+
         linkPanel.add(url);
         linkHeaderPanel.add(linkPanel);
         panel.add(linkHeaderPanel);
         panel.add(Box.createRigidArea(new Dimension(5, V_SPACE)));
-        //
-        JPanel buttons = new JPanel() {
-            private static final long serialVersionUID = 42L;
 
-            {
-                setLayout(new FlowLayout(FlowLayout.CENTER));
-                //
-                JButton add = new JButton(UIManager.getString("OptionPane.okButtonText"));
-                add.addActionListener(e -> {
-                    accepted.set(false);
-                    if (!isValidURL(url.getText())) {
-                        url.putClientProperty("JComponent.outline", "error");
-                        url.requestFocusInWindow();
-                        return;
-                    }
-                    accepted.set(true);
-                    dispose();
-                });
-                add(add);
-                //
-                JButton cancel = new JButton(UIManager.getString("OptionPane.cancelButtonText"));
-                cancel.addActionListener(e -> dispose());
-                add(cancel);
-                //
-                LinkDialog.this.getRootPane().setDefaultButton(add); // Default on INTRO
-            }
-        };
+        JPanel buttons = new ButtonPanel();
 
         panel.add(buttons);
         JPanel padded = new JPanel();
         padded.add(panel);
         getContentPane().add(padded);
-        //
-        // Prepare window.
+
         pack();
         setLocationRelativeTo(null);
         setResizable(false);
@@ -82,30 +54,45 @@ public class LinkDialog extends JDialog {
         return this.accepted.get();
     }
 
-    protected boolean isValidURL(final String url) {
-        if (url.isEmpty())
-            return false;
-        if (url.startsWith("https://") || url.startsWith("http://") //
-                || url.startsWith("ftp://") || url.startsWith("ftps://") //
-                || url.startsWith("mailto:")) {
-            try {
-                new URL(url);
-                return true;
-            } catch (MalformedURLException e) {
-                // Nothing to do here
-            }
-        }
-        return false;
-    }
-
-    public void init() {
-        // Display the window.
-        setVisible(true);
-    }
-
-    private JPanel makeHeaderPanel(final String text) {
+    private JPanel createHeaderPanel() {
         final JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         return panel;
     }
+
+    private class ButtonPanel extends JPanel {
+
+        public ButtonPanel(){
+            super();
+            initComponents();
+        }
+
+        private void initComponents() {
+            setLayout(new FlowLayout(FlowLayout.CENTER));
+
+            JButton addButton = new JButton(UIManager.getString("OptionPane.okButtonText"));
+            addButton.addActionListener(e -> {
+                accepted.set(false);
+
+                ValidatedURL validatedURL = new ValidatedURL(url.getText());
+
+                if (!validatedURL.isValid()) {
+                    url.putClientProperty("JComponent.outline", "error");
+                    url.requestFocusInWindow();
+                    return;
+                }
+                accepted.set(true);
+                dispose();
+            });
+
+            add(addButton);
+
+            JButton cancelButton = new JButton(UIManager.getString("OptionPane.cancelButtonText"));
+            cancelButton.addActionListener(e -> dispose());
+            add(cancelButton);
+
+            LinkDialog.this.getRootPane().setDefaultButton(addButton); // Default on INTRO
+        }
+    }
+
 }

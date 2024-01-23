@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
 public class MergedIcon extends ImageIcon{
 
     public MergedIcon(final ImageIcon ... icons){
-        int width = 0, height = 0;
+        int width = 0;
+        int height = 0;
 
         for (ImageIcon ico : icons) {
             width = Math.max(width, ico.getIconWidth());
