@@ -11,6 +11,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.invoke.MethodHandles;
 
 public class TestFrame {
@@ -69,8 +71,18 @@ public class TestFrame {
 
         SwingHTMLEditor editor = new SwingHTMLEditor();
         editor.setText("<p>Hello <b>world</b> from HTML!</p>");
-        editor.addDocumentListener(new MyDocumentListener(editor));
+        //editor.addDocumentListener(new MyDocumentListener(editor));
         frame.getContentPane().add(editor, BorderLayout.CENTER);
+
+        JButton button = new JButton("Save");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println(editor.getText());
+            }
+        });
+
+        frame.getContentPane().add(button, BorderLayout.NORTH);
     }
 
     class MyDocumentListener implements DocumentListener{
