@@ -1,4 +1,4 @@
-package hu.modeldriven.swinghtmleditor.command;
+package hu.modeldriven.swinghtmleditor.toolbar.command;
 
 import java.util.Arrays;
 import java.util.List;

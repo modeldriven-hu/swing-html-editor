@@ -1,4 +1,4 @@
-package hu.modeldriven.swinghtmleditor.command;
+package hu.modeldriven.swinghtmleditor.toolbar.command;
 
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
@@ -10,22 +10,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Optional;
 
-public class RedoCommand implements Command {
+public class UndoCommand implements Command {
 
     private final UndoManager undoManager;
 
-    public RedoCommand(UndoManager undoManager) {
+    public UndoCommand(UndoManager undoManager) {
         this.undoManager = undoManager;
     }
 
     @Override
     public Optional<Action> getAction() {
         return Optional.of(new AbstractAction() {
+
+            private static final long serialVersionUID = 42L;
+
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    if (undoManager.canRedo()) {
-                        undoManager.redo();
+                    if (undoManager.canUndo()) {
+                        undoManager.undo();
                     }
                 } catch (CannotUndoException ex) {
                     throw new RuntimeException(ex);
@@ -36,26 +39,26 @@ public class RedoCommand implements Command {
 
     @Override
     public String getActionMapKey() {
-        return "redo";
+        return "undo";
     }
 
     @Override
     public String getText() {
-        return "Redo";
+        return "Undo";
     }
 
     @Override
     public String getTooltipText() {
-        return "Redo";
+        return "Undo";
     }
 
     @Override
     public Ikon getIcon() {
-        return MaterialDesign.MDI_REDO;
+        return MaterialDesign.MDI_UNDO;
     }
 
     @Override
     public Optional<Integer> getKeyEvent() {
-        return Optional.of(KeyEvent.VK_Y);
+        return Optional.of(KeyEvent.VK_Z);
     }
 }

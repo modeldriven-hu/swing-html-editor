@@ -2,7 +2,6 @@ package hu.modeldriven.swinghtmleditor.component;
 
 import hu.modeldriven.swinghtmleditor.palette.Palette;
 import hu.modeldriven.swinghtmleditor.palette.PaletteItem;
-import hu.modeldriven.swinghtmleditor.util.IconHelper;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import javax.swing.*;
@@ -12,10 +11,9 @@ import java.awt.event.ActionEvent;
 
 public class ColorSelectorButton extends JButton {
     private static final long serialVersionUID = 42L;
-    private final SetColorActionFactory colorFactory;
+    private final transient SetColorActionFactory colorFactory;
+    private final transient Palette palette;
     private final JPopupMenu colorMenu;
-
-    private final Palette palette;
 
     public ColorSelectorButton(Palette palette) {
         this.colorFactory = new SetColorActionFactory();
@@ -31,18 +29,18 @@ public class ColorSelectorButton extends JButton {
     }
 
     protected final JPopupMenu createPopup() {
-        JPopupMenu colorMenu = new JPopupMenu();
-        colorMenu.setRequestFocusEnabled(false);
-        colorMenu.setLayout(new GridLayout(8, 2));
+        JPopupMenu result = new JPopupMenu();
+        result.setRequestFocusEnabled(false);
+        result.setLayout(new GridLayout(8, 2));
 
         for (final PaletteItem paletteItem : palette.getItems()) {
             JMenuItem menuItem = new JMenuItem(paletteItem.getName());
             menuItem.addActionListener(e -> setSelectedColor(paletteItem, e));
             IconHelper.set(MaterialDesign.MDI_COLOR_HELPER, menuItem, paletteItem.getColor());
-            colorMenu.add(menuItem);
+            result.add(menuItem);
         }
 
-        return colorMenu;
+        return result;
     }
 
     public void setSelectedColor(final PaletteItem paletteItem) {

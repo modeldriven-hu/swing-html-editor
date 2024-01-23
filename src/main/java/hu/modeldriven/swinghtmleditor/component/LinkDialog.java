@@ -18,7 +18,7 @@ public class LinkDialog extends JDialog {
     public LinkDialog(final Frame parent) {
         // Modal
         super(parent, "Link", true);
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         //
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
@@ -58,6 +58,7 @@ public class LinkDialog extends JDialog {
                 LinkDialog.this.getRootPane().setDefaultButton(add); // Default on INTRO
             }
         };
+
         panel.add(buttons);
         JPanel padded = new JPanel();
         padded.add(panel);
@@ -91,6 +92,7 @@ public class LinkDialog extends JDialog {
                 new URL(url);
                 return true;
             } catch (MalformedURLException e) {
+                // Nothing to do here
             }
         }
         return false;

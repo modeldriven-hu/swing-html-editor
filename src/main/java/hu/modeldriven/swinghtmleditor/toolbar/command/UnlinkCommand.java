@@ -1,6 +1,6 @@
-package hu.modeldriven.swinghtmleditor.command;
+package hu.modeldriven.swinghtmleditor.toolbar.command;
 
-import hu.modeldriven.swinghtmleditor.command.action.UnlinkAction;
+import hu.modeldriven.swinghtmleditor.toolbar.command.action.UnlinkAction;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 

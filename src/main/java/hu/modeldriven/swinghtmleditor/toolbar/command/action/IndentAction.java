@@ -1,4 +1,4 @@
-package hu.modeldriven.swinghtmleditor.command.action;
+package hu.modeldriven.swinghtmleditor.toolbar.command.action;
 
 import javax.swing.*;
 import javax.swing.text.AttributeSet;

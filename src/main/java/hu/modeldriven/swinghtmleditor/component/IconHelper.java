@@ -1,4 +1,4 @@
-package hu.modeldriven.swinghtmleditor.util;
+package hu.modeldriven.swinghtmleditor.component;
 
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
@@ -10,6 +10,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.beans.Beans;
 
+// FIXME Helper is not an object oriented design, refactor it to represent
+// business objects
 public class IconHelper {
     public static final int ICON_SIZE = 24; // FIXME: Hardcoded value
 

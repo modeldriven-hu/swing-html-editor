@@ -1,6 +1,6 @@
-package hu.modeldriven.swinghtmleditor;
+package hu.modeldriven.swinghtmleditor.toolbar;
 
-import hu.modeldriven.swinghtmleditor.command.*;
+import hu.modeldriven.swinghtmleditor.toolbar.command.*;
 
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.undo.UndoManager;
@@ -55,8 +55,7 @@ public class ToolBarCommands {
         // add separator
 
         commandGroups.add(new CommandGroup(
-                new InsertHorizontalRuleCommand(),
-                new InsertImageCommand()
+                new InsertHorizontalRuleCommand()
         ));
 
         // add separator

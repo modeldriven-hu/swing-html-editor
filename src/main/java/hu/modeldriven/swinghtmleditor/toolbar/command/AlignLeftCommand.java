@@ -1,4 +1,4 @@
-package hu.modeldriven.swinghtmleditor.command;
+package hu.modeldriven.swinghtmleditor.toolbar.command;
 
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;

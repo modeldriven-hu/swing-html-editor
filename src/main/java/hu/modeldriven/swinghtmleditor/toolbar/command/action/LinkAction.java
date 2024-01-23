@@ -1,4 +1,4 @@
-package hu.modeldriven.swinghtmleditor.command.action;
+package hu.modeldriven.swinghtmleditor.toolbar.command.action;
 
 import hu.modeldriven.swinghtmleditor.component.LinkDialog;
 

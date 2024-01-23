@@ -19,9 +19,10 @@ public class CustomHTMLWriter extends HTMLWriter {
 
     @Override
     protected boolean synthesizedElement(Element elem) {
-        if (matchNameAttribute(elem.getAttributes(), HTML.Tag.IMPLIED)) {
-            return false;
-        }
+        // FIXME why?
+//        if (matchNameAttribute(elem.getAttributes(), HTML.Tag.IMPLIED)) {
+//            return false;
+//        }
         return false;
     }
 

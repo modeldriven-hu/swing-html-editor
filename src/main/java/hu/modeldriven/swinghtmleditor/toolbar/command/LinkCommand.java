@@ -1,37 +1,37 @@
-package hu.modeldriven.swinghtmleditor.command;
+package hu.modeldriven.swinghtmleditor.toolbar.command;
 
-import hu.modeldriven.swinghtmleditor.command.action.IndentAction;
+import hu.modeldriven.swinghtmleditor.toolbar.command.action.LinkAction;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import javax.swing.*;
 import java.util.Optional;
 
-public class IncreaseIndentCommand implements Command {
+public class LinkCommand implements Command {
 
     @Override
     public Optional<Action> getAction() {
-        return Optional.of(new IndentAction(getActionMapKey(), 20f));
+        return Optional.of(new LinkAction());
     }
 
     @Override
     public String getActionMapKey() {
-        return "increment-indent";
+        return "link";
     }
 
     @Override
     public String getText() {
-        return "+Indent";
+        return "Link";
     }
 
     @Override
     public String getTooltipText() {
-        return "Increase Indent";
+        return "Link";
     }
 
     @Override
     public Ikon getIcon() {
-        return MaterialDesign.MDI_FORMAT_INDENT_INCREASE;
+        return MaterialDesign.MDI_LINK;
     }
 
 }

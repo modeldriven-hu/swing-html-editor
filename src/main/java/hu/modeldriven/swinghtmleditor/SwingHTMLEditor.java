@@ -3,6 +3,8 @@ package hu.modeldriven.swinghtmleditor;
 import hu.modeldriven.swinghtmleditor.html.CustomHTMLEditorKit;
 import hu.modeldriven.swinghtmleditor.palette.Palette;
 import hu.modeldriven.swinghtmleditor.palette.WebPalette;
+import hu.modeldriven.swinghtmleditor.toolbar.ToolBar;
+import hu.modeldriven.swinghtmleditor.toolbar.ToolBarCommands;
 
 import javax.swing.*;
 import javax.swing.text.AttributeSet;

@@ -37,9 +37,10 @@ public class CustomHTMLEditorKit extends HTMLEditorKit {
 
     // https://community.oracle.com/tech/developers/discussion/1363299/detect-when-image-finishes-loading-in-html-with-jeditorpane
     private final ViewFactory factory = new HTMLFactory() {
+        @Override
         public View create(final Element elem) {
             final View v = super.create(elem);
-            if ((v != null) && (v instanceof ImageView)) {
+            if (v instanceof ImageView) {
                 final String src = (String) elem.getAttributes().getAttribute(HTML.Attribute.SRC);
                 if (src == null) {
                     return null;
