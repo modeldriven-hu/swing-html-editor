@@ -7,15 +7,16 @@ public class PaletteItem {
     private final String name;
     private final Color color;
 
-    public PaletteItem(Color color, String name ){
+    public PaletteItem(Color color, String name) {
         this.name = name;
         this.color = color;
     }
 
-    public Color getColor(){
+    public Color getColor() {
         return color;
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 

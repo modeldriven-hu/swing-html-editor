@@ -1,6 +1,5 @@
 package hu.modeldriven.swinghtmleditor.html;
 
-import hu.modeldriven.swinghtmleditor.MainFrame;
 import org.apache.commons.io.IOUtils;
 import org.fit.net.DataURLHandler;
 import org.owasp.html.CssSchema;

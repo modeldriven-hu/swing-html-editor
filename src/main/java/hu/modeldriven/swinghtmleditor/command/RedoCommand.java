@@ -14,7 +14,7 @@ public class RedoCommand implements Command {
 
     private final UndoManager undoManager;
 
-    public RedoCommand(UndoManager undoManager){
+    public RedoCommand(UndoManager undoManager) {
         this.undoManager = undoManager;
     }
 

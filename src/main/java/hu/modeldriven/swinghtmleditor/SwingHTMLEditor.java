@@ -20,16 +20,15 @@ public class SwingHTMLEditor extends JPanel {
 
     final JTextPane editorPane;
 
-    public SwingHTMLEditor(){
+    public SwingHTMLEditor() {
         this(new WebPalette());
     }
 
-    public SwingHTMLEditor(Palette palette){
+    public SwingHTMLEditor(Palette palette) {
         super();
         this.editorPane = new JTextPane();
         initComponents(palette);
     }
-
 
     private void initComponents(Palette palette) {
 

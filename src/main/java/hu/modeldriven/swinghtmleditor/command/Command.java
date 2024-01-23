@@ -8,18 +8,19 @@ import java.util.Optional;
 
 public interface Command {
 
-    default Optional<ActionListener> getActionListener(){
+    default Optional<ActionListener> getActionListener() {
         return Optional.empty();
     }
 
-    default Optional<Action> getAction(){
+    default Optional<Action> getAction() {
         return Optional.empty();
     }
 
     String getActionMapKey();
 
     String getText();
-    default boolean isRequestFocusEnabled(){
+
+    default boolean isRequestFocusEnabled() {
         return false;
     }
 
@@ -27,7 +28,7 @@ public interface Command {
 
     Ikon getIcon();
 
-    default Optional<Integer> getKeyEvent(){
+    default Optional<Integer> getKeyEvent() {
         return Optional.empty();
     }
 

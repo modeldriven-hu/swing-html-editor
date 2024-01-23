@@ -11,7 +11,7 @@ public class ToolBarCommands {
 
     HTMLDocument doc;
 
-    public ToolBarCommands(HTMLDocument doc){
+    public ToolBarCommands(HTMLDocument doc) {
         this.doc = doc;
     }
 

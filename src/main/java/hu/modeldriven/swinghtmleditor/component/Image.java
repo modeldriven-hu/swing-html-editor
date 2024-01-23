@@ -1,6 +1,5 @@
 package hu.modeldriven.swinghtmleditor.component;
 
-import hu.modeldriven.swinghtmleditor.MainFrame;
 import org.apache.commons.codec.binary.Base64OutputStream;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;

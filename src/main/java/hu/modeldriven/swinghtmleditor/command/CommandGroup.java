@@ -7,7 +7,7 @@ public class CommandGroup {
 
     private final List<Command> commands;
 
-    public CommandGroup(Command ... commands) {
+    public CommandGroup(Command... commands) {
         this.commands = Arrays.asList(commands);
     }
 

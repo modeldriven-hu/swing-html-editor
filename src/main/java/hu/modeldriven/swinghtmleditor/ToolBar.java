@@ -19,7 +19,7 @@ public class ToolBar {
     ToolBarCommands toolBarCommands;
     Palette palette;
 
-    public ToolBar(JTextPane editorPane, ToolBarCommands toolBarCommands, Palette palette){
+    public ToolBar(JTextPane editorPane, ToolBarCommands toolBarCommands, Palette palette) {
         this.editorPane = editorPane;
         this.toolBarCommands = toolBarCommands;
         this.palette = palette;
