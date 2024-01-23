@@ -7,11 +7,11 @@ import javax.swing.undo.UndoManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ToolbarCommands {
+public class ToolBarCommands {
 
     HTMLDocument doc;
 
-    public ToolbarCommands(HTMLDocument doc){
+    public ToolBarCommands(HTMLDocument doc){
         this.doc = doc;
     }
 

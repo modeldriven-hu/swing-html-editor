@@ -1,6 +1,8 @@
 package hu.modeldriven.swinghtmleditor;
 
 import hu.modeldriven.swinghtmleditor.html.CustomHTMLEditorKit;
+import hu.modeldriven.swinghtmleditor.palette.Palette;
+import hu.modeldriven.swinghtmleditor.palette.WebPalette;
 
 import javax.swing.*;
 import javax.swing.text.AttributeSet;
@@ -19,12 +21,17 @@ public class SwingHTMLEditor extends JPanel {
     final JTextPane editorPane;
 
     public SwingHTMLEditor(){
-        super();
-        this.editorPane = new JTextPane();
-        initComponents();
+        this(new WebPalette());
     }
 
-    private void initComponents() {
+    public SwingHTMLEditor(Palette palette){
+        super();
+        this.editorPane = new JTextPane();
+        initComponents(palette);
+    }
+
+
+    private void initComponents(Palette palette) {
 
         setLayout(new BorderLayout());
 
@@ -45,12 +52,10 @@ public class SwingHTMLEditor extends JPanel {
         editorPane.setDocument(doc);
         editorPane.setText(createEmptyDocument());
 
-        ToolbarCommands commands = new ToolbarCommands(doc);
+        ToolBarCommands toolBarCommands = new ToolBarCommands(doc);
 
-        ToolbarFactory toolbarFactory = new ToolbarFactory();
-        JToolBar toolBar = toolbarFactory.createToolBar(editorPane, commands.getCommandGroups());
-
-        add(toolBar, BorderLayout.NORTH);
+        ToolBar toolbar = new ToolBar(editorPane, toolBarCommands, palette);
+        add(toolbar.asJToolbar(), BorderLayout.NORTH);
         add(editorScrollPane, BorderLayout.CENTER);
         afterLoad(editorPane);
     }

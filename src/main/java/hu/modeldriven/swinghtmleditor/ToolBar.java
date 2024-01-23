@@ -3,6 +3,7 @@ package hu.modeldriven.swinghtmleditor;
 import hu.modeldriven.swinghtmleditor.command.Command;
 import hu.modeldriven.swinghtmleditor.command.CommandGroup;
 import hu.modeldriven.swinghtmleditor.component.ColorSelectorButton;
+import hu.modeldriven.swinghtmleditor.palette.Palette;
 import hu.modeldriven.swinghtmleditor.util.IconHelper;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
@@ -11,16 +12,25 @@ import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
-import java.util.List;
 
-public class ToolbarFactory {
+public class ToolBar {
 
-    public JToolBar createToolBar(JTextPane editorPane, List<CommandGroup> commandGroups) {
+    JTextPane editorPane;
+    ToolBarCommands toolBarCommands;
+    Palette palette;
+
+    public ToolBar(JTextPane editorPane, ToolBarCommands toolBarCommands, Palette palette){
+        this.editorPane = editorPane;
+        this.toolBarCommands = toolBarCommands;
+        this.palette = palette;
+    }
+
+    public JToolBar asJToolbar() {
 
         JToolBar toolBar = new JToolBar();
 
         // Create toolbar buttons
-        createToolBarButtons(toolBar, editorPane, commandGroups);
+        createToolBarButtons(toolBar);
 
         // Focus gain/lost enable/disable buttons
         editorPane.addFocusListener(createFocusListener(toolBar));
@@ -29,11 +39,11 @@ public class ToolbarFactory {
     }
 
 
-    private void createToolBarButtons(JToolBar toolBar, JTextPane editorPane, List<CommandGroup> commandGroups) {
+    private void createToolBarButtons(JToolBar toolBar) {
 
         ActionMap editorActionMap = editorPane.getActionMap();
 
-        for (CommandGroup commandGroup : commandGroups) {
+        for (CommandGroup commandGroup : toolBarCommands.getCommandGroups()) {
 
             for (Command command : commandGroup.getCommands()) {
 
@@ -55,7 +65,7 @@ public class ToolbarFactory {
         }
 
         // FONT COLOR
-        ColorSelectorButton btnFontColor = new ColorSelectorButton();
+        ColorSelectorButton btnFontColor = new ColorSelectorButton(palette);
         btnFontColor.setRequestFocusEnabled(false);
         btnFontColor.setToolTipText("Font Color");
         IconHelper.setColorHelper(MaterialDesign.MDI_COLOR_HELPER, btnFontColor);

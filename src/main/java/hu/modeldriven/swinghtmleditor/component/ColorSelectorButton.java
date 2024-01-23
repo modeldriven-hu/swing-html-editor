@@ -2,7 +2,6 @@ package hu.modeldriven.swinghtmleditor.component;
 
 import hu.modeldriven.swinghtmleditor.palette.Palette;
 import hu.modeldriven.swinghtmleditor.palette.PaletteItem;
-import hu.modeldriven.swinghtmleditor.palette.WebPalette;
 import hu.modeldriven.swinghtmleditor.util.IconHelper;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
@@ -18,9 +17,9 @@ public class ColorSelectorButton extends JButton {
 
     private final Palette palette;
 
-    public ColorSelectorButton() {
+    public ColorSelectorButton(Palette palette) {
         this.colorFactory = new SetColorActionFactory();
-        this.palette = new WebPalette();
+        this.palette = palette;
 
         this.colorMenu = createPopup();
 
