@@ -1,27 +1,26 @@
 package hu.modeldriven.swinghtmleditor;
 
-import hu.modeldriven.swinghtmleditor.command.*;
+import hu.modeldriven.swinghtmleditor.command.Command;
+import hu.modeldriven.swinghtmleditor.command.CommandGroup;
+import hu.modeldriven.swinghtmleditor.component.ColorSelectorButton;
 import hu.modeldriven.swinghtmleditor.util.IconHelper;
+import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import javax.swing.*;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.undo.UndoManager;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class ToolbarFactory {
 
-    public JToolBar createToolBar(HTMLDocument doc, JTextPane editorPane) {
+    public JToolBar createToolBar(JTextPane editorPane, List<CommandGroup> commandGroups) {
 
         JToolBar toolBar = new JToolBar();
 
         // Create toolbar buttons
-        createToolBarButtons(toolBar, editorPane, doc);
+        createToolBarButtons(toolBar, editorPane, commandGroups);
 
         // Focus gain/lost enable/disable buttons
         editorPane.addFocusListener(createFocusListener(toolBar));
@@ -30,69 +29,11 @@ public class ToolbarFactory {
     }
 
 
-    private void createToolBarButtons(JToolBar toolBar, JTextPane editorPane, HTMLDocument doc) {
-
-        UndoManager undoManager = new UndoManager();
-        doc.addUndoableEditListener(undoManager);
-
-        List<CommandGroup> commandGroups = new ArrayList<>();
-
-        commandGroups.add(new CommandGroup(
-                new BoldCommand(),
-                new ItalicCommand(),
-                new UnderlineCommand(),
-                new StrikethroughCommand()
-        ));
-
-//        // FONT COLOR
-//        ColorSelectorButton btnFontColor = new ColorSelectorButton();
-//        btnFontColor.setRequestFocusEnabled(false);
-//        btnFontColor.setToolTipText("Font Color");
-//        IconHelper.setColorHelper(MaterialDesign.MDI_COLOR_HELPER, btnFontColor);
-//        toolBar.add(btnFontColor);
-
-        // add separator
-
-        commandGroups.add(new CommandGroup(
-                new IncreaseIndentCommand(),
-                new ReduceIndentCommand()
-        ));
-
-        // add separator
-
-        commandGroups.add(new CommandGroup(
-                new AlignLeftCommand(),
-                new AlignCenterCommand(),
-                new AlignRightCommand(),
-                new AlignJustifiedCommand()
-        ));
-
-        // add separator
-
-        commandGroups.add(new CommandGroup(
-                new LinkCommand(),
-                new UnlinkCommand()
-        ));
-
-        // add separator
-
-        commandGroups.add(new CommandGroup(
-                new InsertHorizontalRuleCommand(),
-                new InsertImageCommand()
-        ));
-
-        // add separator
-
-        commandGroups.add(new CommandGroup(
-                new UndoCommand(undoManager),
-                new RedoCommand(undoManager)
-        ));
+    private void createToolBarButtons(JToolBar toolBar, JTextPane editorPane, List<CommandGroup> commandGroups) {
 
         ActionMap editorActionMap = editorPane.getActionMap();
 
-        for (Iterator<CommandGroup> it = commandGroups.iterator(); it.hasNext(); ) {
-
-            CommandGroup commandGroup = it.next();
+        for (CommandGroup commandGroup : commandGroups) {
 
             for (Command command : commandGroup.getCommands()) {
 
@@ -105,14 +46,20 @@ public class ToolbarFactory {
                 button.setToolTipText(command.getTooltipText());
                 IconHelper.set(command.getIcon(), button);
 
+                command.getActionListener().ifPresent(l -> button.addActionListener(l));
+
                 toolBar.add(button);
             }
 
-            if (it.hasNext()) {
-                toolBar.addSeparator();
-            }
+            toolBar.addSeparator();
         }
 
+        // FONT COLOR
+        ColorSelectorButton btnFontColor = new ColorSelectorButton();
+        btnFontColor.setRequestFocusEnabled(false);
+        btnFontColor.setToolTipText("Font Color");
+        IconHelper.setColorHelper(MaterialDesign.MDI_COLOR_HELPER, btnFontColor);
+        toolBar.add(btnFontColor);
     }
 
     private FocusListener createFocusListener(JToolBar toolBar) {

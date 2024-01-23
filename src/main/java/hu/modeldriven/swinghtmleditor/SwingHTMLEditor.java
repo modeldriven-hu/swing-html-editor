@@ -45,8 +45,10 @@ public class SwingHTMLEditor extends JPanel {
         editorPane.setDocument(doc);
         editorPane.setText(createEmptyDocument());
 
+        ToolbarCommands commands = new ToolbarCommands(doc);
+
         ToolbarFactory toolbarFactory = new ToolbarFactory();
-        JToolBar toolBar = toolbarFactory.createToolBar(doc, editorPane);
+        JToolBar toolBar = toolbarFactory.createToolBar(editorPane, commands.getCommandGroups());
 
         add(toolBar, BorderLayout.NORTH);
         add(editorScrollPane, BorderLayout.CENTER);

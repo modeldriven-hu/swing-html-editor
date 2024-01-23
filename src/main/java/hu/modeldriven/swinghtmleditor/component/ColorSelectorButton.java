@@ -6,38 +6,28 @@ import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import javax.swing.*;
 import javax.swing.text.StyledEditorKit;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ColorSelectorButton extends JButton {
     private static final long serialVersionUID = 42L;
     private final SetColorActionFactory colorFactory;
-    private final JPopupMenu menuColor;
+    private final JPopupMenu colorMenu;
 
     public ColorSelectorButton() {
-        this(new SetColorActionFactory());
-    }
-
-    public ColorSelectorButton(final SetColorActionFactory colorFactory) {
-        this.colorFactory = colorFactory;
-        this.menuColor = createPopup();
+        this.colorFactory = new SetColorActionFactory();
+        this.colorMenu = createPopup();
         setSelectedColor(WebColor.W_BLACK);
-        //
-        final Component comp = this;
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent ae) {
-                menuColor.show(comp, 0, comp.getHeight());
-            }
-        });
+        addActionListener(actionEvent ->
+                colorMenu.show(ColorSelectorButton.this, 0,
+                        ColorSelectorButton.this.getHeight()));
     }
 
     protected final JPopupMenu createPopup() {
-        JPopupMenu menuColor = new JPopupMenu();
-        menuColor.setRequestFocusEnabled(false);
-        menuColor.setLayout(new GridLayout(8, 2));
+        JPopupMenu colorMenu = new JPopupMenu();
+        colorMenu.setRequestFocusEnabled(false);
+        colorMenu.setLayout(new GridLayout(8, 2));
+
         final WebColor[] colors = {
                 WebColor.W_WHITE, //
                 WebColor.W_SILVER, //
@@ -56,19 +46,24 @@ public class ColorSelectorButton extends JButton {
                 WebColor.W_FUCHSIA, //
                 WebColor.W_PURPLE //
         };
+
         for (final WebColor c : colors) {
             JMenuItem menuItem = new JMenuItem(c.getWebName());
             menuItem.addActionListener(e -> setSelectedColor(c, e));
             IconHelper.set(MaterialDesign.MDI_COLOR_HELPER, menuItem, c);
-            menuColor.add(menuItem);
+            colorMenu.add(menuItem);
         }
-        return menuColor;
+
+        return colorMenu;
     }
 
     public void setSelectedColor(final WebColor newColor) {
         final Icon icon = getIcon();
         final String text = getText();
+
         setAction(colorFactory.create(newColor));
+
+        // Reset original text and icon
         setIcon(icon);
         setText(text);
     }
