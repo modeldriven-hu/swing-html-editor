@@ -1,13 +1,17 @@
 package hu.modeldriven.swinghtmleditor.component;
 
+import hu.modeldriven.swinghtmleditor.component.icon.ColorSelectorIcon;
 import hu.modeldriven.swinghtmleditor.palette.Palette;
 import hu.modeldriven.swinghtmleditor.palette.PaletteItem;
+import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import javax.swing.*;
 import javax.swing.text.StyledEditorKit;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+
+import static javax.swing.UIManager.getColor;
 
 public class ColorSelectorButton extends JButton {
     private static final long serialVersionUID = 42L;
@@ -26,6 +30,25 @@ public class ColorSelectorButton extends JButton {
         addActionListener(actionEvent ->
                 colorMenu.show(ColorSelectorButton.this, 0,
                         ColorSelectorButton.this.getHeight()));
+
+        setIcons(MaterialDesign.MDI_COLOR_HELPER);
+    }
+
+    private void setIcons(Ikon icon){
+        setText(null);
+
+        ImageIcon iconEnabled = new ColorSelectorIcon(icon,
+                getColor("Button.foreground"), getColor("Button.foreground"));
+
+        ImageIcon iconRollover = new ColorSelectorIcon(icon,
+                getColor("Button.foreground"), null);
+
+        ImageIcon iconDisabled = new ColorSelectorIcon(icon,
+                getColor("Button.disabledText"), getColor("Button.foreground"));
+
+        setIcon(iconEnabled);
+        setRolloverIcon(iconRollover);
+        setDisabledIcon(iconDisabled);
     }
 
     protected final JPopupMenu createPopup() {

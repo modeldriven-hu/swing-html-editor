@@ -1,11 +1,10 @@
 package hu.modeldriven.swinghtmleditor.toolbar;
 
+import hu.modeldriven.swinghtmleditor.component.ColorSelectorButton;
+import hu.modeldriven.swinghtmleditor.component.IconHelper;
+import hu.modeldriven.swinghtmleditor.palette.Palette;
 import hu.modeldriven.swinghtmleditor.toolbar.command.Command;
 import hu.modeldriven.swinghtmleditor.toolbar.command.CommandGroup;
-import hu.modeldriven.swinghtmleditor.component.ColorSelectorButton;
-import hu.modeldriven.swinghtmleditor.palette.Palette;
-import hu.modeldriven.swinghtmleditor.component.IconHelper;
-import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
 import javax.swing.*;
 import java.awt.Component;
@@ -68,7 +67,6 @@ public class ToolBar {
         ColorSelectorButton btnFontColor = new ColorSelectorButton(palette);
         btnFontColor.setRequestFocusEnabled(false);
         btnFontColor.setToolTipText("Font Color");
-        IconHelper.setColorHelper(MaterialDesign.MDI_COLOR_HELPER, btnFontColor);
         toolBar.add(btnFontColor);
     }
 
