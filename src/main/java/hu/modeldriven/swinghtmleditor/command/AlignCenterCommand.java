@@ -3,33 +3,26 @@ package hu.modeldriven.swinghtmleditor.command;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
-import java.awt.event.KeyEvent;
-import java.util.Optional;
-
-public class BoldCommand implements Command {
+public class AlignCenterCommand implements Command {
 
     @Override
     public String getActionMapKey() {
-        return "font-bold";
+        return "center-justify";
     }
 
     @Override
     public String getText() {
-        return "B";
+        return "Left";
     }
 
     @Override
     public String getTooltipText() {
-        return "Bold";
+        return "Center Alignment";
     }
 
     @Override
     public Ikon getIcon() {
-        return MaterialDesign.MDI_FORMAT_BOLD;
+        return MaterialDesign.MDI_FORMAT_ALIGN_CENTER;
     }
 
-    @Override
-    public Optional<Integer> getKeyEvent() {
-        return Optional.of(KeyEvent.VK_B);
-    }
 }

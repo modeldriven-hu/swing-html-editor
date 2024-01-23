@@ -1,35 +1,36 @@
 package hu.modeldriven.swinghtmleditor.command;
 
+import hu.modeldriven.swinghtmleditor.action.InsertImageAction;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
-import java.awt.event.KeyEvent;
+import javax.swing.*;
 import java.util.Optional;
 
-public class BoldCommand implements Command {
+public class InsertImageCommand implements Command {
+
+    @Override
+    public Optional<Action> getAction() {
+        return Optional.of(new InsertImageAction());
+    }
 
     @Override
     public String getActionMapKey() {
-        return "font-bold";
+        return "insert-img";
     }
 
     @Override
     public String getText() {
-        return "B";
+        return "Image";
     }
 
     @Override
     public String getTooltipText() {
-        return "Bold";
+        return "Insert Image";
     }
 
     @Override
     public Ikon getIcon() {
-        return MaterialDesign.MDI_FORMAT_BOLD;
-    }
-
-    @Override
-    public Optional<Integer> getKeyEvent() {
-        return Optional.of(KeyEvent.VK_B);
+        return MaterialDesign.MDI_IMAGE;
     }
 }

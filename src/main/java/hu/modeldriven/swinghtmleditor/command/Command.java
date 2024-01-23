@@ -3,21 +3,32 @@ package hu.modeldriven.swinghtmleditor.command;
 import org.kordamp.ikonli.Ikon;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.util.Optional;
 
 public interface Command {
 
-    Action getAction();
+    default Optional<ActionListener> getActionListener(){
+        return Optional.empty();
+    }
+
+    default Optional<Action> getAction(){
+        return Optional.empty();
+    }
 
     String getActionMapKey();
 
     String getText();
-    boolean isRequestFocusEnabled();
+    default boolean isRequestFocusEnabled(){
+        return false;
+    }
 
     String getTooltipText();
 
     Ikon getIcon();
 
-    Optional<Integer> getKeyEvent();
+    default Optional<Integer> getKeyEvent(){
+        return Optional.empty();
+    }
 
 }

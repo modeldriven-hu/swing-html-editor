@@ -6,30 +6,30 @@ import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import java.awt.event.KeyEvent;
 import java.util.Optional;
 
-public class BoldCommand implements Command {
+public class UnderlineCommand implements Command {
 
     @Override
     public String getActionMapKey() {
-        return "font-bold";
+        return "font-underline";
     }
 
     @Override
     public String getText() {
-        return "B";
+        return "U";
     }
 
     @Override
     public String getTooltipText() {
-        return "Bold";
+        return "Underline";
     }
 
     @Override
     public Ikon getIcon() {
-        return MaterialDesign.MDI_FORMAT_BOLD;
+        return MaterialDesign.MDI_FORMAT_UNDERLINE;
     }
 
     @Override
     public Optional<Integer> getKeyEvent() {
-        return Optional.of(KeyEvent.VK_B);
+        return Optional.of(KeyEvent.VK_U);
     }
 }

@@ -1,8 +1,6 @@
 package hu.modeldriven.swinghtmleditor.action;
 
-import hu.modeldriven.swinghtmleditor.command.BoldCommand;
-import hu.modeldriven.swinghtmleditor.command.Command;
-import hu.modeldriven.swinghtmleditor.command.ItalicCommand;
+import hu.modeldriven.swinghtmleditor.command.*;
 import hu.modeldriven.swinghtmleditor.component.ColorSelectorButton;
 import hu.modeldriven.swinghtmleditor.util.IconHelper;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
@@ -63,173 +61,9 @@ public class ToolbarFactory {
             }
         });
 
-        editorActionMap.put("font-strike", new StrikethroughAction());
-        editorActionMap.put("increment-indent", new IndentAction("increment-indent", 20f));
-        editorActionMap.put("reduce-indent", new IndentAction("reduce-indent", -20f));
-        editorActionMap.put("justified",
-                new StyledEditorKit.AlignmentAction("Justify", StyleConstants.ALIGN_JUSTIFIED));
-        editorActionMap.put("link", new LinkAction());
-        editorActionMap.put("unlink", new UnlinkAction());
-        editorActionMap.put("insert-hr", new HTMLEditorKit.InsertHTMLTextAction("insert-hr",
-                "<hr size=1 align=left noshade>", HTML.Tag.BODY, HTML.Tag.HR));
-        editorActionMap.put("insert-img", new InsertImageAction());
-
         JToolBar toolBar = new JToolBar();
+
         createToolBarButtons(toolBar, editorPane, editorActionMap);
-
-
-        // UNDERLINE
-        JButton btnUnderline = new JButton(editorActionMap.get("font-underline"));
-        btnUnderline.setText("U");
-        btnUnderline.setRequestFocusEnabled(false);
-        btnUnderline.setToolTipText("Underline");
-        IconHelper.set(MaterialDesign.MDI_FORMAT_UNDERLINE, btnUnderline);
-        mapKey(editorPane, KeyEvent.VK_U, "font-underline");
-        toolBar.add(btnUnderline);
-
-        // STRIKE-THROUGH
-        JButton btnStrikethrough = new JButton(editorActionMap.get("font-strike"));
-        btnStrikethrough.setText("S");
-        btnStrikethrough.setRequestFocusEnabled(false);
-        btnStrikethrough.setToolTipText("Strikethrough");
-        IconHelper.set(MaterialDesign.MDI_FORMAT_STRIKETHROUGH, btnStrikethrough);
-        mapKey(editorPane, KeyEvent.VK_S, "font-strike");
-        toolBar.add(btnStrikethrough);
-
-        // FONT COLOR
-        ColorSelectorButton btnFontColor = new ColorSelectorButton();
-        btnFontColor.setRequestFocusEnabled(false);
-        btnFontColor.setToolTipText("Font Color");
-        IconHelper.setColorHelper(MaterialDesign.MDI_COLOR_HELPER, btnFontColor);
-        toolBar.add(btnFontColor);
-
-        toolBar.addSeparator();
-
-        // PARAGRAPH + INDENT
-        JButton btnIncreaseIndent = new JButton(editorActionMap.get("increment-indent"));
-        btnIncreaseIndent.setText("+Indent");
-        btnIncreaseIndent.setRequestFocusEnabled(false);
-        btnIncreaseIndent.setToolTipText("Increase Indent");
-        IconHelper.set(MaterialDesign.MDI_FORMAT_INDENT_INCREASE, btnIncreaseIndent);
-        toolBar.add(btnIncreaseIndent);
-
-        // PARAGRAPH - INDENT
-        JButton btnReduceIndent = new JButton(editorActionMap.get("reduce-indent"));
-        btnReduceIndent.setText("-Indent");
-        btnReduceIndent.setRequestFocusEnabled(false);
-        btnReduceIndent.setToolTipText("Reduce Indent");
-        IconHelper.set(MaterialDesign.MDI_FORMAT_INDENT_DECREASE, btnReduceIndent);
-        toolBar.add(btnReduceIndent);
-
-        toolBar.addSeparator();
-
-        // PARAGRAPH LEFT ALIGN
-        JButton btnLeftAlign = new JButton(editorActionMap.get("left-justify"));
-        btnLeftAlign.setText("Left");
-        btnLeftAlign.setRequestFocusEnabled(false);
-        btnLeftAlign.setToolTipText("Left Alignment");
-        IconHelper.set(MaterialDesign.MDI_FORMAT_ALIGN_LEFT, btnLeftAlign);
-        toolBar.add(btnLeftAlign);
-
-        // PARAGRAPH CENTER ALIGN
-        JButton btnCenterAlign = new JButton(editorActionMap.get("center-justify"));
-        btnCenterAlign.setText("Center");
-        btnCenterAlign.setRequestFocusEnabled(false);
-        btnCenterAlign.setToolTipText("Center Alignment");
-        IconHelper.set(MaterialDesign.MDI_FORMAT_ALIGN_CENTER, btnCenterAlign);
-        toolBar.add(btnCenterAlign);
-
-        // PARAGRAPH RIGHT ALIGN
-        JButton btnRightAlign = new JButton(editorActionMap.get("right-justify"));
-        btnRightAlign.setText("Right");
-        btnRightAlign.setRequestFocusEnabled(false);
-        btnRightAlign.setToolTipText("Right Alignment");
-        IconHelper.set(MaterialDesign.MDI_FORMAT_ALIGN_RIGHT, btnRightAlign);
-        toolBar.add(btnRightAlign);
-
-        // PARAGRAPH JUSTIFIED
-        JButton btnJustify = new JButton(editorActionMap.get("justified"));
-        btnJustify.setText("Justify");
-        btnJustify.setRequestFocusEnabled(false);
-        btnJustify.setToolTipText("Justify Alignment");
-        IconHelper.set(MaterialDesign.MDI_FORMAT_ALIGN_JUSTIFY, btnJustify);
-        toolBar.add(btnJustify);
-
-        toolBar.addSeparator();
-
-        // TEXT HYPERLINK
-        JButton btnLink = new JButton(editorActionMap.get("link"));
-        btnLink.setText("Link");
-        btnLink.setRequestFocusEnabled(false);
-        btnLink.setToolTipText("Link");
-        IconHelper.set(MaterialDesign.MDI_LINK, btnLink);
-        toolBar.add(btnLink);
-
-        // TEXT CLEAR HYPERLINK
-        JButton btnUnlink = new JButton(editorActionMap.get("unlink"));
-        btnUnlink.setText("Unlink");
-        btnUnlink.setRequestFocusEnabled(false);
-        btnUnlink.setToolTipText("Unlink");
-        IconHelper.set(MaterialDesign.MDI_LINK_OFF, btnUnlink);
-        toolBar.add(btnUnlink);
-
-        toolBar.addSeparator();
-
-        // HORIZONTAL RULE
-        JButton btnHorizontalRule = new JButton(editorActionMap.get("insert-hr"));
-        btnHorizontalRule.setText("\u2015");
-        btnHorizontalRule.setRequestFocusEnabled(false);
-        btnHorizontalRule.setToolTipText("Horizontal Rule");
-        IconHelper.set(MaterialDesign.MDI_BORDER_HORIZONTAL, btnHorizontalRule);
-        toolBar.add(btnHorizontalRule);
-
-        // IMAGE
-        JButton btnImage = new JButton(editorActionMap.get("insert-img"));
-        btnImage.setText("Img");
-        btnImage.setRequestFocusEnabled(false);
-        btnImage.setToolTipText("Image");
-        IconHelper.set(MaterialDesign.MDI_IMAGE, btnImage);
-        toolBar.add(btnImage);
-
-        toolBar.addSeparator();
-
-        // UNDO CHANGE
-        JButton btnUndo = new JButton(editorActionMap.get("Undo"));
-        btnUndo.setText("Undo");
-        btnUndo.setRequestFocusEnabled(false);
-        btnUndo.setToolTipText("Undo");
-        IconHelper.set(MaterialDesign.MDI_UNDO, btnUndo);
-        mapKey(editorPane, KeyEvent.VK_Z, "Undo");
-        toolBar.add(btnUndo);
-
-        // REDO CHANGE
-        JButton btnRedo = new JButton(editorActionMap.get("Redo"));
-        btnRedo.setText("Redo");
-        btnRedo.setRequestFocusEnabled(false);
-        btnRedo.setToolTipText("Redo");
-        IconHelper.set(MaterialDesign.MDI_REDO, btnRedo);
-        mapKey(editorPane, KeyEvent.VK_Y, "Redo");
-        toolBar.add(btnRedo);
-
-        toolBar.addSeparator();
-
-        // SAVE FILE
-        JButton btnSave = new JButton("Save");
-        btnSave.setText("Save");
-        btnSave.setRequestFocusEnabled(false);
-        btnSave.setToolTipText("Save");
-        btnSave.addActionListener(a -> writeFile(editorPane));
-        IconHelper.set(MaterialDesign.MDI_CONTENT_SAVE, btnSave);
-        toolBar.add(btnSave);
-
-        // LOAD FILE
-        JButton btnLoad = new JButton("Load");
-        btnLoad.setText("Load");
-        btnLoad.setRequestFocusEnabled(false);
-        btnLoad.setToolTipText("Load");
-        btnLoad.addActionListener(a -> loadFile(editorPane));
-        IconHelper.set(MaterialDesign.MDI_OPEN_IN_NEW, btnLoad);
-        toolBar.add(btnLoad);
 
         // Focus gain/lost enable/disable butons
         editorPane.addFocusListener(new FocusListener() {
@@ -257,6 +91,60 @@ public class ToolbarFactory {
 
         commands.add(new BoldCommand());
         commands.add(new ItalicCommand());
+        commands.add(new UnderlineCommand());
+        commands.add(new StrikethroughCommand());
+
+        // FONT COLOR
+        ColorSelectorButton btnFontColor = new ColorSelectorButton();
+        btnFontColor.setRequestFocusEnabled(false);
+        btnFontColor.setToolTipText("Font Color");
+        IconHelper.setColorHelper(MaterialDesign.MDI_COLOR_HELPER, btnFontColor);
+        toolBar.add(btnFontColor);
+
+        // add separator
+
+        commands.add(new IncreaseIndentCommand());
+        commands.add(new ReduceIndentCommand());
+
+        // add separator
+
+        commands.add(new AlignLeftCommand());
+        commands.add(new AlignCenterCommand());
+        commands.add(new AlignRightCommand());
+        commands.add(new AlignJustifiedCommand());
+
+        // add separator
+
+        commands.add(new LinkCommand());
+        commands.add(new UnlinkCommand());
+
+        // add separator
+
+        commands.add(new InsertHorizontalRuleCommand());
+        commands.add(new InsertImageCommand());
+
+        // add separator
+
+        commands.add(new UndoCommand());
+        commands.add(new RedoCommand());
+
+//        // SAVE FILE
+//        JButton btnSave = new JButton("Save");
+//        btnSave.setText("Save");
+//        btnSave.setRequestFocusEnabled(false);
+//        btnSave.setToolTipText("Save");
+//        btnSave.addActionListener(a -> writeFile(editorPane));
+//        IconHelper.set(MaterialDesign.MDI_CONTENT_SAVE, btnSave);
+//        toolBar.add(btnSave);
+//
+//        // LOAD FILE
+//        JButton btnLoad = new JButton("Load");
+//        btnLoad.setText("Load");
+//        btnLoad.setRequestFocusEnabled(false);
+//        btnLoad.setToolTipText("Load");
+//        btnLoad.addActionListener(a -> loadFile(editorPane));
+//        IconHelper.set(MaterialDesign.MDI_OPEN_IN_NEW, btnLoad);
+//        toolBar.add(btnLoad);
 
         for (Command command : commands) {
             JButton button = new JButton(editorActionMap.get(command.getActionMapKey()));

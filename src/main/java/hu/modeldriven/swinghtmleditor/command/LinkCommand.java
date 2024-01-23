@@ -1,35 +1,37 @@
 package hu.modeldriven.swinghtmleditor.command;
 
+import hu.modeldriven.swinghtmleditor.action.LinkAction;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 
-import java.awt.event.KeyEvent;
+import javax.swing.*;
 import java.util.Optional;
 
-public class BoldCommand implements Command {
+public class LinkCommand implements Command {
+
+    @Override
+    public Optional<Action> getAction() {
+        return Optional.of(new LinkAction());
+    }
 
     @Override
     public String getActionMapKey() {
-        return "font-bold";
+        return "link";
     }
 
     @Override
     public String getText() {
-        return "B";
+        return "Link";
     }
 
     @Override
     public String getTooltipText() {
-        return "Bold";
+        return "Link";
     }
 
     @Override
     public Ikon getIcon() {
-        return MaterialDesign.MDI_FORMAT_BOLD;
+        return MaterialDesign.MDI_LINK;
     }
 
-    @Override
-    public Optional<Integer> getKeyEvent() {
-        return Optional.of(KeyEvent.VK_B);
-    }
 }
